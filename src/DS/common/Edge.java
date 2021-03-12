@@ -19,10 +19,7 @@ public class Edge{
         this.to = to;
     }
 
-    public int getLength() {
-        return length;
-    }
-
+    public int getLength() { return length; }
     public int getStream() {
         return stream;
     }
@@ -30,7 +27,5 @@ public class Edge{
     public int getTo() {return to;}
     public int getId() {return id;}
 
-    public Edge getReverseEdge(){
-        return new Edge(type, to, from, length);
-    }
+    public Edge getReverseEdge(){ return new Edge(type, to, from, length); }
 }
