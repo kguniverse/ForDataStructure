@@ -4,21 +4,28 @@ import java.util.*;
 
 public class Graph{
     private Vector<Vector<Edge>> e1;
+    private HashMap<String, Integer> nameToBuildingIndex;
     private int totalNodeNum;
-    public Graph(){}
-    public Graph(int totalNodeNum){
+    private ArrayList<Edge> edges;
+    private ArrayList<Node> nodes;
 
-        if(totalNodeNum <= Constants.MAXIMUM_Node)
-        {
-            e1 = new Vector<>(totalNodeNum);
-            Constants.NowNodeNum += totalNodeNum;
-            this.totalNodeNum = totalNodeNum;
-        }
-        //TODO:else brunch
-    }
-    public void addEdge(int type, int u, int v, int length){
-        e1.get(u).add(new Edge(type, v, length));
-        e1.get(v).add(new Edge(type, u, length));
-    }
     public int getNodeNum(){return totalNodeNum;}
+    public Graph(){}
+    public Graph(ArrayList<Edge> edges, ArrayList<Node> nodes){
+        this.edges = edges;
+        this.nodes = nodes;
+        this.totalNodeNum = nodes.size();
+        for(Edge e : edges){
+            addEdge(e);
+        }
+        nameToBuildingIndex = new HashMap<>();
+        for(Node x : nodes){
+            nameToBuildingIndex.put(x.getName(), x.getId());
+        }
+    }
+    public void addEdge(Edge e){
+        int u = e.getFrom(), v = e.getTo();
+        e1.get(u).add(e);
+    }
+
 }

@@ -9,4 +9,7 @@ public class Node{
         this.name = name;
         this.id = ++Constants.NowNodeNum;
     }
+
+    public String getName(){return name;}
+    public int getId() { return id; }
 }
