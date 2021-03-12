@@ -27,7 +27,7 @@ public class Graph{
     }
 
     public void addEdge(Edge e){
-        int u = e.getFrom(), v = e.getTo();
+        int u = e.getFrom();
         e1.get(u).add(e);
     }
 
