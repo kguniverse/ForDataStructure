@@ -28,6 +28,7 @@ public class Navigator {
     public void setWaytoPoint(ArrayList<Edge> WayToPoint){
         this.WayToPoint = WayToPoint;
     }
+
     private void Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[g.getNodeNum() + 1];
@@ -36,7 +37,19 @@ public class Navigator {
         }
         dis[start] = 0;
         while(!pq.isEmpty()){
-
+            Edge u = pq.poll();
+            for(int i = 0; i < g.getNodeNum(); i++){
+                Edge v = g.getEdge(u.getFrom(), i);
+                int t = v.getTo();
+                if(strategy.judgeRelaxation(u, t)){
+                    //TODO:strategy类要重写，此处就抽象为松弛操作
+                }
+            }
+        }
+        if(dis[end] == Constants.inf) {
+            //TODO:无法到达
+        }else{
+            //TODO:可到达
         }
     }
     public void go(){

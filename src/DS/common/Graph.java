@@ -29,5 +29,7 @@ public class Graph{
         int u = e.getFrom();
         e1.get(u).add(e);
     }
-
+    public Edge getEdge(int u, int index){
+        return e1.get(u).get(index);
+    }
 }
