@@ -10,13 +10,14 @@ public class Edge{
 
     public Edge() {}
 
-    public Edge(int type, int from, int to, int length) {
+    public Edge(int type, int from, int to, int length, int stream) {
         this.type = type;
         this.stream = 0;
         this.length = length;
         this.from = from;
         this.id = ++Constants.NowEdgeNum;
         this.to = to;
+        this.stream = stream;
     }
 
     public int getLength() { return length; }
@@ -27,5 +28,5 @@ public class Edge{
     public int getTo() {return to;}
     public int getId() {return id;}
 
-    public Edge getReverseEdge(){ return new Edge(type, to, from, length); }
+    public Edge getReverseEdge(){ return new Edge(type, to, from, length, stream); }
 }
