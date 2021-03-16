@@ -7,9 +7,9 @@ public class Edge{
     private int id;
     private int from;
     private int to;
+    private int cmp;
 
     public Edge() {}
-
     public Edge(int type, int from, int to, int length, int stream) {
         this.type = type;
         this.stream = 0;
@@ -19,6 +19,11 @@ public class Edge{
         this.to = to;
         this.stream = stream;
     }
+    public Edge(int to, int val){
+        this.to = to;
+        this.cmp = val;
+    }
+
 
     public int getLength() { return length; }
     public int getStream() {

@@ -6,18 +6,20 @@ import DS.function.stratrgyPack.*;
 import java.util.*;
 
 public class Navigator {
-    private Graph g;
+    private final Graph g;
     private int beginNum;
     private int endNum;
-    private int[] route;
+    private Vector<Edge> route;
     private Strategy strategy;
-    private ArrayList<Edge>WayToPoint;
+    private ArrayList<Edge> WayToPoint;
+    private Vector<Edge> buffer;
+    private int cannotApproach;
 
     public Navigator(){ g = new Graph(); }
     public Navigator(Graph g1){ g = g1; }
 
 
-            public void setBeginNum(int x){beginNum = x;}
+    public void setBeginNum(int x){beginNum = x;}
     public void setEndNum(int x){endNum = x;}
     public void setStrategy(int x){
         if(x == 1) strategy = new Strategy1();
@@ -29,27 +31,45 @@ public class Navigator {
         this.WayToPoint = WayToPoint;
     }
 
+
+
     private void Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[g.getNodeNum() + 1];
+        Edge[] fa = new Edge[g.getNodeNum() + 1];
+        Edge[] buf = new Edge[g.getNodeNum() + 1];
         for(int i = 1; i <= g.getNodeNum(); i++){
             dis[i] = Constants.inf;
         }
         dis[start] = 0;
+        pq.add(new Edge(start, 0));
         while(!pq.isEmpty()){
             Edge u = pq.poll();
+            if(u.getFrom() == end) break;
             for(int i = 0; i < g.getNodeNum(); i++){
                 Edge v = g.getEdge(u.getFrom(), i);
                 int t = v.getTo();
-                if(strategy.judgeRelaxation(u, t)){
-                    //TODO:strategy类要重写，此处就抽象为松弛操作
+                if(dis[t] > dis[u.getFrom()] + strategy.cmpValue(v)){
+                    dis[t] = dis[u.getFrom()] + strategy.cmpValue(v);
+                    pq.add(new Edge(t, dis[t]));
+                    fa[t] = v;
                 }
             }
         }
         if(dis[end] == Constants.inf) {
-            //TODO:无法到达
+            cannotApproach = 1;
         }else{
-            //TODO:可到达
+            int rec = end;
+            int cnt = 0;
+            while(rec != start){
+                buf[cnt++] = fa[rec];
+                rec = fa[rec].getTo();
+            }
+            //get reverse route
+            for(int i = cnt - 1; i >= 0; i--){
+                buffer.add(buf[i]);
+            }
+            //Correction
         }
     }
     public void go(){

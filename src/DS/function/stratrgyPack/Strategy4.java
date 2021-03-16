@@ -6,12 +6,7 @@ import DS.function.*;
 public class Strategy4 extends Strategy{
 
     @Override
-    public boolean judgeRelaxation(Edge u, int v) {
-        return false;
-    }
-
-    @Override
-    public void Relaxation(Edge u, int v) {
-
+    public int cmpValue(Edge x) {
+        return 0;
     }
 }

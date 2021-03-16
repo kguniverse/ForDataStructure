@@ -3,18 +3,20 @@ package DS.function.stratrgyPack;
 import DS.common.Edge;
 import DS.function.*;
 
+import java.util.Comparator;
+
 public class Strategy1 extends Strategy{
-    public void relaxation(Edge u, int v) {
 
+    public Strategy1(){
+        cmp = new Comparator<Edge>() {
+            @Override
+            public int compare(Edge o1, Edge o2) {
+                return cmpValue(o1) - cmpValue(o2);
+            }
+        };
     }
-
     @Override
-    public boolean judgeRelaxation(Edge u, int v) {
-        return false;
-    }
-
-    @Override
-    public void Relaxation(Edge u, int v) {
-
+    public int cmpValue(Edge x) {
+        return x.getLength();
     }
 }
