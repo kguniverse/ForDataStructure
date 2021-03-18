@@ -39,6 +39,6 @@ public class Graph{
         return e1.get(u).get(index);
     }
 
-    public HashMap getNameToNodeIndex() {return nameToNodeIndex;}
-    public HashMap getNodeIndexToName() {return nodeIndexToName;}
+    public int getNameToNodeIndex(String name) {return nameToNodeIndex.get(name);}
+    public String getNodeIndexToName(int index) {return nodeIndexToName.get(index);}
 }

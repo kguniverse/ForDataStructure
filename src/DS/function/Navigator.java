@@ -35,6 +35,7 @@ public class Navigator {
         int[] dis = new int[g.getNodeNum() + 1];
         Edge[] fa = new Edge[g.getNodeNum() + 1];
         Edge[] buf = new Edge[g.getNodeNum() + 1];
+        cannotApproach = 0;
         for(int i = 1; i <= g.getNodeNum(); i++){
             dis[i] = Constants.inf;
         }
@@ -83,16 +84,16 @@ public class Navigator {
         int num = buffer.size();
         if(cannotApproach == 1){
             System.out.println("Sorry, you can not approach from "
-                    + g.getNodeIndexToName().get(beginNum)
+                    + g.getNodeIndexToName(beginNum)
                     + " to "
-                    + g.getNameToNodeIndex().get((endNum))
+                    + g.getNodeIndexToName(endNum)
             );
             return;
         }
 
         System.out.println("Great, You find the way!\n");
         for(int i = 0; i < num; i++){
-            System.out.println(g.getNodeIndexToName().get(buffer.get(i).getId()));
+            System.out.println(g.getNodeIndexToName(buffer.get(i).getId()));
         }
     }
     //Todo 待完善细节
