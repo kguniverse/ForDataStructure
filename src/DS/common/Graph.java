@@ -1,24 +1,43 @@
 package DS.common;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Graph{
     private Vector<Vector<Edge>> e1;
-    private int totalNodeNum;
-    public Graph(){}
-    public Graph(int totalNodeNum){
+    private HashMap<String, Integer> nameToNodeIndex;
+    private HashMap<Integer, String> nodeIndexToName;
 
-        if(totalNodeNum <= Constants.MAXIMUM_Node)
-        {
-            e1 = new Vector<>(totalNodeNum);
-            Constants.NowNodeNum += totalNodeNum;
-            this.totalNodeNum = totalNodeNum;
-        }
-        //TODO:else brunch
-    }
-    public void addEdge(int type, int u, int v, int length){
-        e1.get(u).add(new Edge(type, v, length));
-        e1.get(v).add(new Edge(type, u, length));
-    }
+    private int totalNodeNum;
+    private ArrayList<Edge> edges;
+    private ArrayList<Node> nodes;
+
     public int getNodeNum(){return totalNodeNum;}
+
+    public Graph(){}
+    public Graph(ArrayList<Edge> edges, ArrayList<Node> nodes){
+        this.edges = edges;
+        this.nodes = nodes;
+        this.totalNodeNum = nodes.size();
+        for(Edge e : edges){
+            addEdge(e);
+        }
+        nameToNodeIndex = new HashMap<>();
+        for(Node x : nodes){
+            nameToNodeIndex.put(x.getName(), x.getId());
+            nodeIndexToName.put(x.getId(), x.getName());
+        }
+    }
+
+    public void addEdge(Edge e){
+        int u = e.getFrom();
+        e1.get(u).add(e);
+    }
+    public Edge getEdge(int u, int index){
+        return e1.get(u).get(index);
+    }
+
+    public HashMap getNameToNodeIndex() {return nameToNodeIndex;}
+    public HashMap getNodeIndexToName() {return nodeIndexToName;}
 }
