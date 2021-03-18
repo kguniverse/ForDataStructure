@@ -7,6 +7,8 @@ import java.util.*;
 public class Graph{
     private Vector<Vector<Edge>> e1;
     private HashMap<String, Integer> nameToNodeIndex;
+    private HashMap<Integer, String> nodeIndexToName;
+
 
     private int totalNodeNum;
     private ArrayList<Edge> edges;
@@ -25,6 +27,7 @@ public class Graph{
         nameToNodeIndex = new HashMap<>();
         for(Node x : nodes){
             nameToNodeIndex.put(x.getName(), x.getId());
+            nodeIndexToName.put(x.getId(), x.getName());
         }
     }
 
@@ -35,4 +38,7 @@ public class Graph{
     public Edge getEdge(int u, int index){
         return e1.get(u).get(index);
     }
+
+    public HashMap getNameToNodeIndex() {return nameToNodeIndex;}
+    public HashMap getNodeIndexToName() {return nodeIndexToName;}
 }

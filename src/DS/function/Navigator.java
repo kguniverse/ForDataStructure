@@ -30,9 +30,6 @@ public class Navigator {
     public void setWaytoPoint(ArrayList<Edge> WayToPoint){
         this.WayToPoint = WayToPoint;
     }
-
-
-
     private void Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[g.getNodeNum() + 1];
@@ -77,10 +74,26 @@ public class Navigator {
             return;
         }
     }
-
-    public void showRoute(){
-
+    private void addMustBy(int begin, int mid, int end) {
+        Dijkstra(begin, mid);
+        Dijkstra(mid, end);
     }
 
+    public void showRoute(){
+        int num = buffer.size();
+        if(cannotApproach == 1){
+            System.out.println("Sorry, you can not approach from "
+                    + g.getNodeIndexToName().get(beginNum)
+                    + " to "
+                    + g.getNameToNodeIndex().get((endNum))
+            );
+            return;
+        }
 
+        System.out.println("Great, You find the way!\n");
+        for(int i = 0; i < num; i++){
+            System.out.println(g.getNodeIndexToName().get(buffer.get(i).getId()));
+        }
+    }
+    //Todo 待完善细节
 }
