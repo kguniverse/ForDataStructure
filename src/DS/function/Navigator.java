@@ -11,12 +11,23 @@ public class Navigator {
     private int endNum;
     private Vector<Edge> route;
     private Strategy strategy;
-    private ArrayList<Edge> WayToPoint;
+    private ArrayList<Integer> WayToPoint;
     private Vector<Edge> buffer;
     private int cannotApproach;
 
     public Navigator(){ g = new Graph(); }
     public Navigator(Graph g1){ g = g1; }
+
+    public int getBeginNum() {
+        return beginNum;
+    }
+    public int getEndNum() {
+        return endNum;
+    }
+    public ArrayList<Integer> getWayToPoint() {
+        return WayToPoint;
+    }
+
 
 
     public void setBeginNum(int x){beginNum = x;}
@@ -27,7 +38,7 @@ public class Navigator {
         else if(x == 3) strategy = new Strategy3();
         else if(x == 4) strategy = new Strategy4();
     }
-    public void setWaytoPoint(ArrayList<Edge> WayToPoint){
+    public void setWaytoPoint(ArrayList<Integer> WayToPoint){
         this.WayToPoint = WayToPoint;
     }
     private void Dijkstra(int start, int end){
