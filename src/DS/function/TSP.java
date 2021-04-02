@@ -17,6 +17,7 @@ public class TSP {
         this.wayToPoint.add(Navi.getEndNum());
         graph = new Matrix(Navi, wayToPoint.size());
     }
+
     private int CalculateLength(Matrix G, TSP_solution newSolution){
         int _length = 0;
 
@@ -32,18 +33,8 @@ public class TSP {
                 _length += G.arcs[_startCity][_endCity];
             }
         }
-
-        // 判断该路径是否能回到起始城市
-        if (G.arcs[(int)newSolution.path[G.vex_num - 1]][(int)newSolution.path[0]] == -1)
-        //TODO:把回到起始城市改为回到终点城市
-        {
-            return Constants.inf;
-        }
-        else{
-            _length += G.arcs[(int)newSolution.path[G.vex_num - 1]][(int)newSolution.path[0]];
-            // cout<<"_length = "<<_length<<endl;
-            return _length;
-        }
+        // cout<<"_length = "<<_length<<endl;
+        return _length;
 
     }
     TSP_solution FindNewSolution(Matrix G, TSP_solution bestSolution){
@@ -167,7 +158,7 @@ class Matrix{
 }
 
 class TSP_solution{
-    //TODO：初始化
+    //TODO：初始化, 映射
     public int length_path;
     public Integer[] path;
 }
