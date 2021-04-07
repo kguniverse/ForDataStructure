@@ -9,7 +9,6 @@ public class Graph{
     private HashMap<String, Integer> nameToNodeIndex;
     private HashMap<Integer, String> nodeIndexToName;
 
-
     private int totalNodeNum;
     private ArrayList<Edge> edges;
     private ArrayList<Node> nodes;

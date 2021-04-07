@@ -30,13 +30,16 @@ public class Navigator {
     public void setWaytoPoint(ArrayList<Edge> WayToPoint){
         this.WayToPoint = WayToPoint;
     }
+
+
+
     private void Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[g.getNodeNum() + 1];
         Edge[] fa = new Edge[g.getNodeNum() + 1];
         Edge[] buf = new Edge[g.getNodeNum() + 1];
         for(int i = 1; i <= g.getNodeNum(); i++){
-            dis[i] = Constants.inf;
+            //dis[i] = Constants.inf;
         }
         dis[start] = 0;
         pq.add(new Edge(start, 0));
@@ -53,7 +56,7 @@ public class Navigator {
                 }
             }
         }
-        if(dis[end] == Constants.inf) {
+        if(dis[end] == 1) {
             cannotApproach = 1;
         }else{
             int rec = end;
@@ -74,6 +77,7 @@ public class Navigator {
             return;
         }
     }
+
     private void addMustBy(int begin, int mid, int end) {
         Dijkstra(begin, mid);
         Dijkstra(mid, end);

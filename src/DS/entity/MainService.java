@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 public class MainService {
     public static void main(String[] args) {
+        System.out.println("whj");
+
+        /*
         //Todo:程序入口：先读入地点信息后建图。
         ArrayList<Edge> edges;
         ArrayList<Node> nodes = new ArrayList<>();
@@ -35,5 +38,6 @@ public class MainService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
     }
 }
