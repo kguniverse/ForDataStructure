@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 public class MainService {
     public static void main(String[] args) {
+        System.out.println("whj");
+
+        /*
         //Todo:程序入口：先读入地点信息后建图。
         ArrayList<Edge> edges = new ArrayList<>();
         ArrayList<Node> nodes = new ArrayList<>();
@@ -35,6 +38,7 @@ public class MainService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         Graph g = new Graph(edges, nodes);
         Navigator nav = new Navigator(g);
 
@@ -47,7 +51,6 @@ public class MainService {
         //TODO：读入起始点，终点
         //TODO：询问是否添加途径点
         //TODO：输出
-
-
+        */
     }
 }
