@@ -1,7 +1,7 @@
 package DS.entity;
 
-import DS.common.Edge;
-import DS.common.Node;
+import DS.common.*;
+import DS.function.Navigator;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -14,7 +14,7 @@ public class MainService {
 
         /*
         //Todo:程序入口：先读入地点信息后建图。
-        ArrayList<Edge> edges;
+        ArrayList<Edge> edges = new ArrayList<>();
         ArrayList<Node> nodes = new ArrayList<>();
         try {
             Scanner scEdge = new Scanner(Paths.get("src/readinFiles/edges.txt"));
@@ -38,6 +38,19 @@ public class MainService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Graph g = new Graph(edges, nodes);
+        Navigator nav = new Navigator(g);
+
+        //TODO：读入完成
+        //TODO：日志模块
+        //TODO：界面（命令行，能用就行）
+
+        //TODO：建图（通过两个数组）over
+        //TODO：建导航（接口为图）over
+        //TODO：读入起始点，终点
+        //TODO：询问是否添加途径点
+        //TODO：输出
         */
     }
 }

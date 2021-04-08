@@ -11,12 +11,23 @@ public class Navigator {
     private int endNum;
     private Vector<Edge> route;
     private Strategy strategy;
-    private ArrayList<Edge> WayToPoint;
+    private ArrayList<Integer> WayToPoint;
     private Vector<Edge> buffer;
     private int cannotApproach;
 
     public Navigator(){ g = new Graph(); }
     public Navigator(Graph g1){ g = g1; }
+
+    public int getBeginNum() {
+        return beginNum;
+    }
+    public int getEndNum() {
+        return endNum;
+    }
+    public ArrayList<Integer> getWayToPoint() {
+        return WayToPoint;
+    }
+
 
 
     public void setBeginNum(int x){beginNum = x;}
@@ -27,7 +38,7 @@ public class Navigator {
         else if(x == 3) strategy = new Strategy3();
         else if(x == 4) strategy = new Strategy4();
     }
-    public void setWaytoPoint(ArrayList<Edge> WayToPoint){
+    public void setWaytoPoint(ArrayList<Integer> WayToPoint){
         this.WayToPoint = WayToPoint;
     }
 
@@ -38,6 +49,7 @@ public class Navigator {
         int[] dis = new int[g.getNodeNum() + 1];
         Edge[] fa = new Edge[g.getNodeNum() + 1];
         Edge[] buf = new Edge[g.getNodeNum() + 1];
+        cannotApproach = 0;
         for(int i = 1; i <= g.getNodeNum(); i++){
             //dis[i] = Constants.inf;
         }
@@ -87,16 +99,16 @@ public class Navigator {
         int num = buffer.size();
         if(cannotApproach == 1){
             System.out.println("Sorry, you can not approach from "
-                    + g.getNodeIndexToName().get(beginNum)
+                    + g.getNodeIndexToName(beginNum)
                     + " to "
-                    + g.getNameToNodeIndex().get((endNum))
+                    + g.getNodeIndexToName(endNum)
             );
             return;
         }
 
         System.out.println("Great, You find the way!\n");
         for(int i = 0; i < num; i++){
-            System.out.println(g.getNodeIndexToName().get(buffer.get(i).getId()));
+            System.out.println(g.getNodeIndexToName(buffer.get(i).getId()));
         }
     }
     //Todo 待完善细节
