@@ -16,7 +16,11 @@ public class Navigator {
     private int cannotApproach;
 
     public Navigator(){ g = new Graph(); }
-    public Navigator(Graph g1){ g = g1; }
+    public Navigator(Graph g1){
+        g = g1;
+        route = new Vector<>();
+        buffer = new Vector<>();
+    }
 
     public int getBeginNum() {
         return beginNum;
@@ -44,7 +48,7 @@ public class Navigator {
 
 
 
-    private void Dijkstra(int start, int end){
+    public int Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[g.getNodeNum() + 1];
         Edge[] fa = new Edge[g.getNodeNum() + 1];
@@ -70,6 +74,7 @@ public class Navigator {
         }
         if(dis[end] == 1) {
             cannotApproach = 1;
+            return -1;
         }else{
             int rec = end;
             int cnt = 0;
@@ -82,33 +87,42 @@ public class Navigator {
                 buffer.add(buf[i]);
             }
             //Correction
+            return dis[end];
         }
     }
-    public void go(){
-        if(beginNum == 0 || endNum == 0){
-            return;
+    public void addMustBy(int x) {
+        WayToPoint.add(x);
+    }
+    public void confirmedStart(){
+        if(WayToPoint.isEmpty()){
+            int min_length = Dijkstra(beginNum, endNum);
+            route.addAll(buffer);
+            buffer.clear();
+        }
+        else{
+            TSP TSP_method = new TSP(this);
+            TSP_solution solution = TSP_method.SA_TSP();
+            for(int i = 0; i <= WayToPoint.size(); i++){
+                int min_length = Dijkstra(WayToPoint.get(solution.getInitNum(solution.path[i])), solution.getInitNum(solution.path[i + 1]));
+                route.addAll(buffer);
+                buffer.clear();
+            }
         }
     }
-
-    private void addMustBy(int begin, int mid, int end) {
-        Dijkstra(begin, mid);
-        Dijkstra(mid, end);
-    }
-
     public void showRoute(){
         int num = buffer.size();
         if(cannotApproach == 1){
             System.out.println("Sorry, you can not approach from "
                     + g.getNodeIndexToName(beginNum)
-                    + " to "
+                    + " -> "
                     + g.getNodeIndexToName(endNum)
             );
             return;
         }
 
         System.out.println("Great, You find the way!\n");
-        for(int i = 0; i < num; i++){
-            System.out.println(g.getNodeIndexToName(buffer.get(i).getId()));
+        for (Edge edge : route) {
+            System.out.println(g.getNodeIndexToName(edge.getId()));
         }
     }
     //Todo 待完善细节

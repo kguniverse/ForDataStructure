@@ -5,23 +5,22 @@ import DS.common.*;
 import java.util.*;
 
 public class TSP {
-    private Matrix graph;
+    private Matrix G;
     private ArrayList<Integer> wayToPoint;
     private HashMap<Integer, Integer> reflectToNum;
     private TSP_solution bestSolution;
+    private int start, end;
 
     public TSP(Navigator Navi){
         this.wayToPoint = new ArrayList<>();
-        this.wayToPoint.add(Navi.getBeginNum());
         this.wayToPoint.addAll(Navi.getWayToPoint());
-        this.wayToPoint.add(Navi.getEndNum());
-        graph = new Matrix(Navi, wayToPoint.size());
+        G = new Matrix(Navi, wayToPoint.size());
     }
 
-    private int CalculateLength(Matrix G, TSP_solution newSolution){
+    private int CalculateLength(TSP_solution newSolution){
         int _length = 0;
 
-        for (int i = 1; i <= G.vex_num; i++)
+        for (int i = 1; i < G.vex_num; i++)
         {
             int _startCity = (int)newSolution.path[i];
             int _endCity = (int)newSolution.path[i + 1];
@@ -33,11 +32,12 @@ public class TSP {
                 _length += G.arcs[_startCity][_endCity];
             }
         }
+        _length += G.arcs[newSolution.path[0]][newSolution.path[1]] + G.arcs[newSolution.path[G.vex_num]][newSolution.path[G.vex_num + 1]];
         // cout<<"_length = "<<_length<<endl;
         return _length;
 
     }
-    TSP_solution FindNewSolution(Matrix G, TSP_solution bestSolution){
+    TSP_solution FindNewSolution(TSP_solution bestSolution){
         // 产生新的解
         TSP_solution newSolution = bestSolution;
 
@@ -99,12 +99,12 @@ public class TSP {
         // 载入起点与终点
         newSolution.path[G.vex_num] = wayToPoint.get(wayToPoint.size() - 1);
 
-        newSolution.length_path = CalculateLength(G, newSolution);
+        newSolution.length_path = CalculateLength(newSolution);
         return newSolution;
     }
 
 
-    TSP_solution SA_TSP(Matrix G){
+    TSP_solution SA_TSP(){
 
         // 当前温度
         double Current_Temperature = Constants.INITIAL_TEMPERATURE;
@@ -127,7 +127,7 @@ public class TSP {
             // 满足迭代次数
             for (int i = 0; i < Constants.LEGNTH_Mapkob; i++)
             {
-                Current_solution = FindNewSolution(G, Best_solution);
+                Current_solution = FindNewSolution(Best_solution);
                 if (Current_solution.length_path <= Best_solution.length_path)	// 接受新解
                 {
                     Best_solution = Current_solution;
@@ -153,7 +153,25 @@ class Matrix{
     public int vex_num, arc_num;
 
     public Matrix(Navigator Navi, int n){
-        //TODO:初始化
+        vex_num = n;
+        ArrayList<Integer> wayToBy = new ArrayList<>();
+        wayToBy.add(Navi.getBeginNum());
+        wayToBy.addAll(Navi.getWayToPoint());
+        wayToBy.add(Navi.getEndNum());
+        arcs = new int[wayToBy.size() + 5][];
+        //init
+        for(int i = 0; i < wayToBy.size() + 5; i++){
+            arcs[i] = new int[wayToBy.size() + 5];
+        }
+        for(int i = 0; i < wayToBy.size(); i++){
+            for(int j = 0; j < wayToBy.size(); j++){
+                if(i == j) arcs[i][j] = 0;
+                else{
+                    arcs[i][j] = Navi.Dijkstra(wayToBy.get(i), wayToBy.get(j));
+                    arcs[j][i] = arcs[i][j];
+                }
+            }
+        }
     }
 }
 
@@ -161,6 +179,11 @@ class TSP_solution{
     //TODO：初始化, 映射
     public int length_path;
     public Integer[] path;
+    private HashMap<Integer, Integer> inv;
+
+    public int getInitNum(int x){
+        return inv.get(x);
+    }
 }
 
 class ArrayUtils {
