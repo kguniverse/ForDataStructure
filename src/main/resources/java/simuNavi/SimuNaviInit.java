@@ -2,14 +2,12 @@ package simuNavi;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serial;
 
 public class SimuNaviInit extends JFrame {
 	/**
 	 * 我们导航的主界面
 	 * @author DELL
 	 */
-	@Serial
 	private static final long serialVersionUID = 1L;
 	//构造方法,当创建类的对象的时候，也就是new的时候自动调用
 	public SimuNaviInit() {

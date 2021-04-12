@@ -1,12 +1,6 @@
 package DS.entity;
 
-import DS.common.*;
 import DS.function.Navigator;
-
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MainService {
     public static void main(String[] args) {

@@ -46,6 +46,9 @@ public class Navigator {
         this.WayToPoint = WayToPoint;
     }
 
+    public boolean judgeBetweenCampus(){
+        return g.getNode(beginNum) != g.getNode(endNum);
+    }
 
 
     public int Dijkstra(int start, int end){

@@ -35,7 +35,7 @@ public class Graph{
     public Edge getEdge(int u, int index){
         return e1.get(u).get(index);
     }
-
+    public Node getNode(int index) { return nodes.get(index); }
     public int getNameToNodeIndex(String name) {return nameToNodeIndex.get(name);}
     public String getNodeIndexToName(int index) {return nodeIndexToName.get(index);}
 }
