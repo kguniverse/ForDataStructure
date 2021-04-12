@@ -4,6 +4,7 @@ package DS.function;
 import DS.common.*;
 import DS.function.stratrgyPack.*;
 import java.util.*;
+import MyLog.Mylog;
 
 public class Navigator {
     private final Graph g;
@@ -76,6 +77,7 @@ public class Navigator {
             }
         }
         if(dis[end] == 1) {
+            Mylog.lWprintf("endpoint cannot approach");
             cannotApproach = 1;
             return -1;
         }else{
@@ -90,6 +92,7 @@ public class Navigator {
                 buffer.add(buf[i]);
             }
             //Correction
+            Mylog.lIprintf("successfully get the direct route");
             return dis[end];
         }
     }
@@ -124,9 +127,11 @@ public class Navigator {
         }
 
         System.out.println("Great, You find the way!\n");
+        System.out.println(g.getNodeIndexToName(beginNum));
+        StringBuilder info = new StringBuilder();
         for (Edge edge : route) {
-            System.out.println(g.getNodeIndexToName(edge.getId()));
+            info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
+        Mylog.lIprintf(info.toString());
     }
-    //Todo 待完善细节
 }

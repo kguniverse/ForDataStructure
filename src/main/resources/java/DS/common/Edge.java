@@ -34,6 +34,9 @@ public class Edge{
     public int getId() {return id;}
 
     public void setLength(int length){ this.length = length; }
+    public void showInDos(){
+
+    }
 
     public Edge getReverseEdge(){ return new Edge(type, to, from, length, stream); }
 }
