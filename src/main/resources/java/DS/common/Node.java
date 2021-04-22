@@ -15,7 +15,13 @@ public class Node{
         this.posY = posY;
         this.campus = campus;
     }
-
+    public Node(String[] detailedInfoNode){
+        name = detailedInfoNode[0];
+        id = Integer.parseInt(detailedInfoNode[1]);
+        posX = Integer.parseInt(detailedInfoNode[2]);
+        posY = Integer.parseInt(detailedInfoNode[3]);
+        campus = Integer.parseInt(detailedInfoNode[4]);
+    }
     public String getName(){return name;}
     public int getId() { return id; }
     public int getPosX() { return posX; }

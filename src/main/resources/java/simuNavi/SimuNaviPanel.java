@@ -33,7 +33,7 @@ public class SimuNaviPanel extends JPanel {
 	// 静态块
 	static {
 		// 加载背景图片
-		bjImg = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("map.png"));
+		bjImg = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("Image/map.png"));
 	}
 
 	// 创建人物对象及其位置

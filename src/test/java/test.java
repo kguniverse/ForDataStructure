@@ -1,10 +1,8 @@
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import MyLog.Mylog;
 
 public class test {
 
     public static void main(String[] args) {
-
+        Mylog.lIprintf("this is a test");
     }
 }

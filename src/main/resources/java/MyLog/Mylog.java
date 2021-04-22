@@ -16,5 +16,5 @@ public class Mylog {
     public static void lWprintf(String info){
         logger.warn(info);
     }
-    public static void lEprintf(String info) { logger.error(info);}
+    public static void lEprintf(String info) { logger.error(info); }
 }

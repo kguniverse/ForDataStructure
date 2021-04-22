@@ -33,10 +33,10 @@ public class Man {
 	static Toolkit tk =Toolkit.getDefaultToolkit();
 	
 	static {
-		manImgLeft = tk.createImage(Man.class.getClassLoader().getResource("left.jpg"));
-		manImgRight = tk.createImage(Man.class.getClassLoader().getResource("right.jpg"));
-		manImgUp = tk.createImage(Man.class.getClassLoader().getResource("up.png"));
-		manImgDown = tk.createImage(Man.class.getClassLoader().getResource("down.jpg"));
+		manImgLeft = tk.createImage(Man.class.getClassLoader().getResource("Image/left.jpg"));
+		manImgRight = tk.createImage(Man.class.getClassLoader().getResource("Image/right.jpg"));
+		manImgUp = tk.createImage(Man.class.getClassLoader().getResource("Image/up.png"));
+		manImgDown = tk.createImage(Man.class.getClassLoader().getResource("Image/down.jpg"));
 	}
 	// 画出人物
 	public void paint(Graphics g) {

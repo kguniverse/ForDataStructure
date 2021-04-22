@@ -1,9 +1,10 @@
 package DS.common;
 
 import java.util.*;
+import java.util.function.UnaryOperator;
 
 public class Graph{
-    private Vector<Vector<Edge>> e1;
+    private Vertex[] e1;
     private HashMap<String, Integer> nameToNodeIndex;
     private HashMap<Integer, String> nodeIndexToName;
 
@@ -18,10 +19,11 @@ public class Graph{
         this.edges = edges;
         this.nodes = nodes;
         this.totalNodeNum = nodes.size();
-        for(Edge e : edges){
-            addEdge(e);
-        }
+        e1 = new Vertex[Constants.MAXIMUM_Node];
+        for(int i = 0; i < Constants.MAXIMUM_Node; i++) e1[i] = new Vertex();
+        for(Edge e : edges) addEdge(e);
         nameToNodeIndex = new HashMap<>();
+        nodeIndexToName = new HashMap<>();
         for(Node x : nodes){
             nameToNodeIndex.put(x.getName(), x.getId());
             nodeIndexToName.put(x.getId(), x.getName());
@@ -29,13 +31,16 @@ public class Graph{
     }
 
     public void addEdge(Edge e){
+        //TODO:add next edge
         int u = e.getFrom();
-        e1.get(u).add(e);
-    }
-    public Edge getEdge(int u, int index){
-        return e1.get(u).get(index);
+        Vertex head = e1[u];
+        while(head.hasNext()) head = head.getNextVertex();
+        head.addNextVertex(e);
     }
     public Node getNode(int index) { return nodes.get(index); }
     public int getNameToNodeIndex(String name) {return nameToNodeIndex.get(name);}
     public String getNodeIndexToName(int index) {return nodeIndexToName.get(index);}
+    public Vertex getHeadVertex(int index) {
+        return e1[index];
+    }
 }

@@ -9,8 +9,8 @@
         <module name="ForDataStructure" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ForDataStructure" target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="ForDataStructure" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -66,14 +66,16 @@ public class Navigator {
         while(!pq.isEmpty()){
             Edge u = pq.poll();
             if(u.getFrom() == end) break;
-            for(int i = 0; i < g.getNodeNum(); i++){
-                Edge v = g.getEdge(u.getFrom(), i);
+            Vertex head = g.getHeadVertex(u.getFrom());
+            while(head != null){
+                Edge v = head.getEdge();
                 int t = v.getTo();
                 if(dis[t] > dis[u.getFrom()] + strategy.cmpValue(v)){
                     dis[t] = dis[u.getFrom()] + strategy.cmpValue(v);
                     pq.add(new Edge(t, dis[t]));
                     fa[t] = v;
                 }
+                head = head.getNextVertex();
             }
         }
         if(dis[end] == 1) {
@@ -88,6 +90,7 @@ public class Navigator {
                 rec = fa[rec].getTo();
             }
             //get reverse route
+            Mylog.lIprintf("get reverse route");
             for(int i = cnt - 1; i >= 0; i--){
                 buffer.add(buf[i]);
             }
@@ -125,7 +128,6 @@ public class Navigator {
             );
             return;
         }
-
         System.out.println("Great, You find the way!\n");
         System.out.println(g.getNodeIndexToName(beginNum));
         StringBuilder info = new StringBuilder();
