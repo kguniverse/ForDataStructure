@@ -133,8 +133,7 @@ public class Navigator {
             return;
         }
         System.out.println("Great, You find the way!\n");
-        System.out.println(g.getNodeIndexToName(beginNum));
-        StringBuilder info = new StringBuilder();
+        StringBuilder info = new StringBuilder(g.getNodeIndexToName(beginNum));
         for (Edge edge : buffer) {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
@@ -144,5 +143,6 @@ public class Navigator {
         int dis = Dijkstra(beginNum, endNum);
         Mylog.lDprintf("shortest distance:" + dis);
         showRoute();
+        // TESTED
     }
 }

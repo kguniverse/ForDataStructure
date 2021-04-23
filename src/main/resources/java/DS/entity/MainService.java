@@ -26,7 +26,7 @@ public class MainService {
                 //TODO:错误处理
                 edges.add(new Edge(detailedInfoEdge));
                 edges.add((new Edge(detailedInfoEdge)).getReverseEdge());
-                Mylog.lDprintf("successfully add Edge:" + infoEdge);
+//                Mylog.lDprintf("successfully add Edge:" + infoEdge);
             }
             scEdge.close();
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class MainService {
                String infoNode = scNode.nextLine();
                String[] detailedInfoNode = infoNode.split(" ");
                nodes.add(new Node(detailedInfoNode));
-                Mylog.lDprintf("successfully add node:" + infoNode);
+//                Mylog.lDprintf("successfully add node:" + infoNode);
 
             }
             scNode.close();

@@ -1,7 +1,6 @@
 package DS.common;
 
 import java.util.*;
-import java.util.function.UnaryOperator;
 
 public class Graph{
     private Vertex[] e1;
@@ -31,7 +30,6 @@ public class Graph{
     }
 
     public void addEdge(Edge e){
-        //TODO:add next edge
         int u = e.getFrom();
         Vertex head = e1[u];
         while(head.hasNext()) head = head.getNextVertex();
