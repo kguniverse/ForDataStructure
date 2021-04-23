@@ -58,7 +58,7 @@ public class Navigator {
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[Constants.MAXIMUM_Node];
         Edge[] fa = new Edge[Constants.MAXIMUM_Node];
-        Edge[] buf = new Edge[Constants.MAXIMUM_Node];
+        Edge[] buf = new Edge[Constants.MAXIMUM_Edge];
         cannotApproach = 0;
         for(int i = 1; i < Constants.MAXIMUM_Node; i++){
             dis[i] = Constants.inf;
@@ -73,8 +73,9 @@ public class Navigator {
             while(head.hasNext()){
                 Edge v = head.getNextVertex().getEdge();
                 int t = v.getTo();
-                if(dis[t] > dis[u.getFrom()] + strategy.cmpValue(v)){
-                    dis[t] = dis[u.getFrom()] + strategy.cmpValue(v);
+                //TODO:没有增加策略不同的弹性
+                if(dis[t] > dis[u.getTo()] + v.getLength()){
+                    dis[t] = dis[u.getTo()] + v.getLength();
                     pq.add(new Edge(t, dis[t]));
                     fa[t] = v;
                 }
@@ -90,7 +91,7 @@ public class Navigator {
             int cnt = 0;
             while(rec != start){
                 buf[cnt++] = fa[rec];
-                rec = fa[rec].getTo();
+                rec = fa[rec].getFrom();
             }
             //get reverse route
             Mylog.lIprintf("get reverse route");
@@ -134,10 +135,10 @@ public class Navigator {
         System.out.println("Great, You find the way!\n");
         System.out.println(g.getNodeIndexToName(beginNum));
         StringBuilder info = new StringBuilder();
-        for (Edge edge : route) {
+        for (Edge edge : buffer) {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
-        Mylog.lIprintf(info.toString());
+        System.out.println(info.toString());
     }
     public void go(){
         int dis = Dijkstra(beginNum, endNum);

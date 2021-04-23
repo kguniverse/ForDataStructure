@@ -25,6 +25,7 @@ public class MainService {
                 String[] detailedInfoEdge = infoEdge.split(" ");
                 //TODO:错误处理
                 edges.add(new Edge(detailedInfoEdge));
+                edges.add((new Edge(detailedInfoEdge)).getReverseEdge());
                 Mylog.lDprintf("successfully add Edge:" + infoEdge);
             }
             scEdge.close();
