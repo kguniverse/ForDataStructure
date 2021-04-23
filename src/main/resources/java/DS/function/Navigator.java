@@ -21,6 +21,8 @@ public class Navigator {
         g = g1;
         route = new Vector<>();
         buffer = new Vector<>();
+        beginNum = 101;
+        endNum = 501;
     }
 
     public int getBeginNum() {
@@ -54,21 +56,22 @@ public class Navigator {
 
     public int Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
-        int[] dis = new int[g.getNodeNum() + 1];
-        Edge[] fa = new Edge[g.getNodeNum() + 1];
-        Edge[] buf = new Edge[g.getNodeNum() + 1];
+        int[] dis = new int[Constants.MAXIMUM_Node];
+        Edge[] fa = new Edge[Constants.MAXIMUM_Node];
+        Edge[] buf = new Edge[Constants.MAXIMUM_Node];
         cannotApproach = 0;
-        for(int i = 1; i <= g.getNodeNum(); i++){
-            //dis[i] = Constants.inf;
+        for(int i = 1; i < Constants.MAXIMUM_Node; i++){
+            dis[i] = Constants.inf;
         }
         dis[start] = 0;
         pq.add(new Edge(start, 0));
         while(!pq.isEmpty()){
             Edge u = pq.poll();
-            if(u.getFrom() == end) break;
-            Vertex head = g.getHeadVertex(u.getFrom());
-            while(head != null){
-                Edge v = head.getEdge();
+            if(u.getTo() == end)
+                break;
+            Vertex head = g.getHeadVertex(u.getTo());
+            while(head.hasNext()){
+                Edge v = head.getNextVertex().getEdge();
                 int t = v.getTo();
                 if(dis[t] > dis[u.getFrom()] + strategy.cmpValue(v)){
                     dis[t] = dis[u.getFrom()] + strategy.cmpValue(v);
@@ -78,7 +81,7 @@ public class Navigator {
                 head = head.getNextVertex();
             }
         }
-        if(dis[end] == 1) {
+        if(dis[end] == Constants.inf) {
             Mylog.lWprintf("endpoint cannot approach");
             cannotApproach = 1;
             return -1;
@@ -135,5 +138,10 @@ public class Navigator {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
         Mylog.lIprintf(info.toString());
+    }
+    public void go(){
+        int dis = Dijkstra(beginNum, endNum);
+        Mylog.lDprintf("shortest distance:" + dis);
+        showRoute();
     }
 }

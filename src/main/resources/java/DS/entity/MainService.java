@@ -47,6 +47,8 @@ public class MainService {
 
         Graph g = new Graph(edges, nodes);
         Navigator nav = new Navigator(g);
+        nav.setStrategy(1);
+        nav.go();
         //TODO：读入完成(over)
         //TODO：日志模块 (over)
         //TODO：界面（命令行，能用就行）(over)

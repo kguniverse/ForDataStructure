@@ -49,4 +49,8 @@ public class Edge{
     }
 
     public Edge getReverseEdge(){ return new Edge(type, to, from, length, campus, stream); }
+
+    public int getCmp() {
+        return cmp;
+    }
 }

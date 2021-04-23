@@ -11,7 +11,7 @@ public class Strategy1 extends Strategy{
         cmp = new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
-                return cmpValue(o1) - cmpValue(o2);
+                return o1.getCmp() - o2.getCmp();
             }
         };
     }
