@@ -6,13 +6,14 @@ import simuNavi.SimuNaviInit;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class Page4 {
-    private String start;
-    private String end;
+    private static String start;
+    private static String end;
 
-    public String getStart() { return start; }
-    public String getEnd() { return end; }
+    public static String getStart() { return start; }
+    public static String getEnd() { return end; }
 
     public void navigate() {
         // 创建 JFrame 实例
@@ -35,8 +36,6 @@ public class Page4 {
          */
         panel.setLayout(null);
 
-        //TODO:加最短路运行代码
-
         // 创建 JLabel
         JLabel startLabel = new JLabel("起点名");
         /* 这个方法定义了组件的位置。
@@ -45,10 +44,9 @@ public class Page4 {
          */
         startLabel.setBounds(10,20,80,25);
         panel.add(startLabel);
-        JTextField satrtText = new JTextField(20);
-        satrtText.setBounds(100,20,165,25);
-        panel.add(satrtText);
-
+        JTextField startText = new JTextField(20);
+        startText.setBounds(100,20,165,25);
+        panel.add(startText);
         // 输入的文本域用于目的地
         JLabel endLabel = new JLabel("终点名");
         endLabel.setBounds(10,50,80,25);
@@ -57,13 +55,13 @@ public class Page4 {
         endText.setBounds(100,50,165,25);
         panel.add(endText);
 
+
         JButton confirm = new JButton("确定");
         confirm.setBounds(100,100, 120, 25);
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-                start = satrtText.getText();
+                start = startText.getText();
                 end = endText.getText();
                 /*
                 TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
@@ -71,6 +69,7 @@ public class Page4 {
                 new SimuNaviInit();
             }
         });
+
         //返回上级
         JButton button = new JButton();
         button.setBounds(100,150, 120, 25);

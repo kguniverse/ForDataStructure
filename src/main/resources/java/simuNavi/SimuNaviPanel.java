@@ -1,5 +1,11 @@
 package simuNavi;
 
+import DS.common.Edge;
+import DS.common.Graph;
+import DS.common.Node;
+import Page.Page4;
+import org.w3c.dom.ls.LSOutput;
+
 import javax.swing.*;
 import java.applet.AudioClip;
 import java.awt.*;
@@ -12,8 +18,21 @@ import java.awt.*;
 public class SimuNaviPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// 构造方法,用于调用线程
-	public SimuNaviPanel() {
+	private static Graph g;
+	static int startx;
+	static int starty;
+	static Man myMan;
+	public SimuNaviPanel(Graph g1) {
 		// 启动线程
+		g = g1;
+		String tem = Page4.getStart();
+		int n = g.getNameToNodeIndex(tem);
+		Node node = g.getNode(n);
+		int x = node.getPosX();
+		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
+		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
+		// 创建人物对象及其位置
+		myMan = new Man(startx,starty);
 		SimuNaviThread my = new SimuNaviThread();
 		my.start();
 	}
@@ -36,8 +55,6 @@ public class SimuNaviPanel extends JPanel {
 		bjImg = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("Image/map.png"));
 	}
 
-	// 创建人物对象及其位置
-	static Man myMan = new Man(780,415);
 	
 	@Override
 	public void paint(Graphics g) {
