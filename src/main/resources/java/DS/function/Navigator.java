@@ -1,5 +1,5 @@
 package DS.function;
-
+import Page.Page4;
 
 import DS.common.*;
 import DS.function.stratrgyPack.*;
@@ -21,8 +21,13 @@ public class Navigator {
         g = g1;
         route = new Vector<>();
         buffer = new Vector<>();
-        beginNum = 101;
-        endNum = 501;
+
+        /*
+        beginNum = 9019;
+        endNum = 9020;
+         */
+        beginNum = g.getNameToNodeIndex(Page4.getStart());
+        endNum = g.getNameToNodeIndex(Page4.getEnd());
     }
 
     public int getBeginNum() {
@@ -34,7 +39,6 @@ public class Navigator {
     public ArrayList<Integer> getWayToPoint() {
         return WayToPoint;
     }
-
 
 
     public void setBeginNum(int x){beginNum = x;}
@@ -133,8 +137,7 @@ public class Navigator {
             return;
         }
         System.out.println("Great, You find the way!\n");
-        System.out.println(g.getNodeIndexToName(beginNum));
-        StringBuilder info = new StringBuilder();
+        StringBuilder info = new StringBuilder(g.getNodeIndexToName(beginNum));
         for (Edge edge : buffer) {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
@@ -144,5 +147,16 @@ public class Navigator {
         int dis = Dijkstra(beginNum, endNum);
         Mylog.lDprintf("shortest distance:" + dis);
         showRoute();
+        // TESTED
+    }
+
+    public int getRoute(int index) {
+        return route.get(index).getTo();
+    }
+    public int getNum() {
+        return route.size();
+    }
+    public Node getNode(int index){
+        return g.getNode(index);
     }
 }

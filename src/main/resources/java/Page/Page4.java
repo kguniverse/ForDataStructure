@@ -20,7 +20,7 @@ public class Page4 {
         JFrame frame = new JFrame("校园导览系统");
         // 设定面板大小
         frame.setSize(350, 200);
-        frame.setLocation(200, 150);
+        frame.setLocation(170, 455);
         JPanel panel = new JPanel();
         // 添加面板
         frame.add(panel);
@@ -57,7 +57,7 @@ public class Page4 {
 
 
         JButton confirm = new JButton("确定");
-        confirm.setBounds(100,100, 120, 25);
+        confirm.setBounds(120,100, 120, 25);
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -72,7 +72,7 @@ public class Page4 {
 
         //返回上级
         JButton button = new JButton();
-        button.setBounds(100,150, 120, 25);
+        button.setBounds(120,150, 120, 25);
         panel.add(button);
         button.setText("返回上级");
         button.addActionListener(new ActionListener() {

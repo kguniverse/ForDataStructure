@@ -10,7 +10,7 @@ public class Man {
 	// 人物初始位置
 	private int x;
 	private int y;
-
+	private Graph gra;
 	private boolean arriveFlag = false;
 	public boolean getArriveFlag() {
 		return this.arriveFlag;
@@ -20,7 +20,8 @@ public class Man {
 	public static final int MAN_HEIGHT = 50;
 	
 	// 构造方法
-	public Man(int x,int y) {
+	public Man(int x,int y, Graph g) {
+		gra = g;
 		this.x = x;
 		this.y = y;
 	}
@@ -45,7 +46,6 @@ public class Man {
 
 	Navigator navi = new Navigator();
 	int numOfNodes = navi.getNum();
-	Graph gra = new Graph();
 
 	public void paint(Graphics g) {
 		//TODO:从navigator推送

@@ -32,7 +32,7 @@ public class SimuNaviPanel extends JPanel {
 		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
 		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
 		// 创建人物对象及其位置
-		myMan = new Man(startx,starty);
+		myMan = new Man(startx,starty, g1);
 		SimuNaviThread my = new SimuNaviThread();
 		my.start();
 	}
