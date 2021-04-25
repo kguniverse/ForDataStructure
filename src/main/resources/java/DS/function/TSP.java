@@ -22,8 +22,8 @@ public class TSP {
 
         for (int i = 1; i < G.vex_num; i++)
         {
-            int _startCity = (int)newSolution.path[i];
-            int _endCity = (int)newSolution.path[i + 1];
+            int _startCity = newSolution.path[i];
+            int _endCity = newSolution.path[i + 1];
             if (G.arcs[_startCity][_endCity] == -1)
             {
                 return Constants.inf;

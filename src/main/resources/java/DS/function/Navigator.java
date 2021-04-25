@@ -5,8 +5,11 @@ import DS.common.*;
 import DS.function.stratrgyPack.*;
 import java.util.*;
 import MyLog.Mylog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Navigator {
+    final Logger logger = LoggerFactory.getLogger(Navigator.class);
     private final Graph g;
     private int beginNum;
     private int endNum;
@@ -94,12 +97,12 @@ public class Navigator {
                 rec = fa[rec].getFrom();
             }
             //get reverse route
-            Mylog.lIprintf("get reverse route");
+            logger.info("get reverse route");
             for(int i = cnt - 1; i >= 0; i--){
                 buffer.add(buf[i]);
             }
             //Correction
-            Mylog.lIprintf("successfully get the direct route");
+            logger.info("successfully get the direct route");
             return dis[end];
         }
     }
@@ -141,7 +144,7 @@ public class Navigator {
     }
     public void go(){
         int dis = Dijkstra(beginNum, endNum);
-        Mylog.lDprintf("shortest distance:" + dis);
+        logger.debug("shortest distance:" + dis);
         showRoute();
         // TESTED
     }

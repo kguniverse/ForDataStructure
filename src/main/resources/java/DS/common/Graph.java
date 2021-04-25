@@ -8,15 +8,23 @@ public class Graph{
     private HashMap<Integer, String> nodeIndexToName;
 
     private int totalNodeNum;
-    private ArrayList<Edge> edges;
-    private ArrayList<Node> nodes;
+    private HashMap<Integer, Edge> edges;
+    private HashMap<Integer, Node> nodes;
 
     public int getNodeNum(){return totalNodeNum;}
 
     public Graph(){}
     public Graph(ArrayList<Edge> edges, ArrayList<Node> nodes){
-        this.edges = edges;
-        this.nodes = nodes;
+        this.edges = new HashMap<>();
+        this.nodes = new HashMap<>();
+        for(Edge x : edges){
+            int id = x.getId();
+            this.edges.put(id, x);
+        }
+        for(Node x : nodes){
+            int id = x.getId();
+            this.nodes.put(id, x);
+        }
         this.totalNodeNum = nodes.size();
         e1 = new Vertex[Constants.MAXIMUM_Node];
         for(int i = 0; i < Constants.MAXIMUM_Node; i++) e1[i] = new Vertex();
@@ -35,9 +43,18 @@ public class Graph{
         while(head.hasNext()) head = head.getNextVertex();
         head.addNextVertex(e);
     }
-    public Node getNode(int index) { return nodes.get(index); }
-    public int getNameToNodeIndex(String name) {return nameToNodeIndex.get(name);}
-    public String getNodeIndexToName(int index) {return nodeIndexToName.get(index);}
+    public Node getNode(int index) {
+        return nodes.get(index);
+    }
+    public Edge getEdge(int index) {
+        return edges.get(index);
+    }
+    public int getNameToNodeIndex(String name) {
+        return nameToNodeIndex.get(name);
+    }
+    public String getNodeIndexToName(int index) {
+        return nodeIndexToName.get(index);
+    }
     public Vertex getHeadVertex(int index) {
         return e1[index];
     }
