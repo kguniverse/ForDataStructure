@@ -35,6 +35,7 @@ public class Graph{
             nameToNodeIndex.put(x.getName(), x.getId());
             nodeIndexToName.put(x.getId(), x.getName());
         }
+        System.out.println("dfgh");
     }
 
     public void addEdge(Edge e){

@@ -12,9 +12,11 @@ import java.util.*;
 public class MainService {
     public static void main(String[] args) {
 
-//        Page0 helloPage = new Page0();
-//        helloPage.page();
+        Page0 helloPage = new Page0();
+        helloPage.page();
 
+
+        /*
         //Todo:程序入口：先读入地点信息后建图。
         ArrayList<Edge> edges = new ArrayList<>();
         ArrayList<Node> nodes = new ArrayList<>();
@@ -46,10 +48,13 @@ public class MainService {
             e.printStackTrace();
         }
 
+
         Graph g = new Graph(edges, nodes);
         Navigator nav = new Navigator(g);
         nav.setStrategy(1);
         nav.go();
+
+         */
         //TODO：读入完成(over)
         //TODO：日志模块 (over)
         //TODO：界面（命令行，能用就行）(over)
