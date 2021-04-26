@@ -150,6 +150,7 @@ public class Navigator {
         int dis = Dijkstra(beginNum, endNum);
         logger.debug("shortest distance:" + dis);
         showRoute();
+        route.addAll(buffer);
         // TESTED
     }
 
