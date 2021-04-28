@@ -21,6 +21,7 @@ public class MainService {
         ArrayList<Edge> edges = new ArrayList<>();
         ArrayList<Node> nodes = new ArrayList<>();
         try {
+
             Scanner scEdge = new Scanner(Paths.get("src/main/resources/java/readinFiles/edges.txt"));
             while(scEdge.hasNextLine()){
                 String infoEdge = scEdge.nextLine();

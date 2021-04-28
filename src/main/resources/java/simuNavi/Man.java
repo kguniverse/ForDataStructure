@@ -1,5 +1,6 @@
 package simuNavi;
 import DS.common.Graph;
+import DS.common.Node;
 import DS.function.Navigator;
 import org.w3c.dom.ls.LSOutput;
 
@@ -11,6 +12,7 @@ public class Man {
 	private int x;
 	private int y;
 	private Graph gra;
+	private Navigator nav;
 	private boolean arriveFlag = false;
 	public boolean getArriveFlag() {
 		return this.arriveFlag;
@@ -18,9 +20,16 @@ public class Man {
 	// 人像宽度和高度,是一个常量
 	public static final int MAN_WIDTH = 50;
 	public static final int MAN_HEIGHT = 50;
-	
+	private int numOfNodes;
+	private int i = 0;
+	public int geti() {
+		return i;
+	}
+
 	// 构造方法
-	public Man(int x,int y, Graph g) {
+	public Man(int x,int y, Graph g, Navigator navi) {
+		nav = navi;
+		numOfNodes = nav.getNum();
 		gra = g;
 		this.x = x;
 		this.y = y;
@@ -44,32 +53,37 @@ public class Man {
 	}
 	// 画出人物
 
-	Navigator navi = new Navigator();
-	int numOfNodes = navi.getNum();
-
 	public void paint(Graphics g) {
 		//TODO:从navigator推送
-		for(int i = 0; i < numOfNodes; i++) {
-			if(gra.getNode(navi.getRoute(i)).getPosY() > y) {
+			if(gra.getNode(nav.getRoute(i)).getPosY() > y) {
 				y++;
+				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
+					i++;
 				g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
-			else if(gra.getNode(navi.getRoute(i)).getPosY() < y) {
+			else if(gra.getNode(nav.getRoute(i)).getPosY() < y) {
 				y--;
+				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
+					i++;
 				g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
-			else if(gra.getNode(navi.getRoute(i)).getPosX() < x) {
+			else if(gra.getNode(nav.getRoute(i)).getPosX() < x) {
 				x--;
+				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
+					i++;
 				g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
-			else if(gra.getNode(navi.getRoute(i)).getPosX() > x) {
+			else if(gra.getNode(nav.getRoute(i)).getPosX() > x) {
 				x++;
+				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
+					i++;
 				g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
-		}
-			arriveFlag = true;
-			g.setFont(new Font("宋体", Font.BOLD , 60));
-			g.drawString("恭喜你到达目的地！", 200, 300);
+			if(i == numOfNodes) {
+				arriveFlag = true;
+				g.setFont(new Font("宋体", Font.BOLD , 60));
+				g.drawString("恭喜你到达目的地！", 200, 300);
+			}
 	}
 
 	//TODO：两个校区之间，美化
