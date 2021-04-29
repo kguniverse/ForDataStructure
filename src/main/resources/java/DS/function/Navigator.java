@@ -143,7 +143,7 @@ public class Navigator {
         for (Edge edge : buffer) {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
-        System.out.println(info.toString());
+        System.out.println(info);
     }
     public void go(){
         int dis = Dijkstra(beginNum, endNum);
