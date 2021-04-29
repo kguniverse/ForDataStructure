@@ -56,6 +56,8 @@ public class SimuNaviInit extends JFrame {
 
 		Graph g = new Graph(edges, nodes);
 		Navigator nav = new Navigator(g);
+		//TODO:导航模块初始化
+		nav.setBeginNumByPage();
 		nav.setStrategy(1);
 		nav.go();
 

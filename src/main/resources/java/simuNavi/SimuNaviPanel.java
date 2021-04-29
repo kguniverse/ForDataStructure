@@ -23,6 +23,7 @@ public class SimuNaviPanel extends JPanel {
 	static int startx;
 	static int starty;
 	static Man myMan;
+
 	public int i = 0;
 
 	boolean arriveFlag = false;

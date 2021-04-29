@@ -18,21 +18,20 @@ public class Navigator {
     private ArrayList<Integer> WayToPoint;
     private Vector<Edge> buffer;
     private int cannotApproach;
+    private boolean setBeginNum;
 
     public Navigator(){ g = new Graph(); }
     public Navigator(Graph g1){
         g = g1;
         route = new Vector<>();
         buffer = new Vector<>();
-
-        /*
-        beginNum = 9019;
-        endNum = 9020;
-         */
-        beginNum = g.getNameToNodeIndex(Page4.getStart());
-        endNum = g.getNameToNodeIndex(Page4.getEnd());
+        setBeginNum = false;
     }
-
+    public void setBeginNumByPage(){
+        this.beginNum = g.getNameToNodeIndex(Page4.getStart());
+        this.endNum = g.getNameToNodeIndex(Page4.getEnd());
+        setBeginNum = true;
+    }
     public int getBeginNum() {
         return beginNum;
     }
