@@ -26,7 +26,6 @@ public class Navigator {
         route = new Vector<>();
         buffer = new Vector<>();
         setBeginNum = false;
-
     }
     public void setBeginNumByPage(){
         this.beginNum = g.getNameToNodeIndex(Page4.getStart());

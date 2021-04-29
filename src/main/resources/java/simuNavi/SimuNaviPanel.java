@@ -3,6 +3,7 @@ package simuNavi;
 import DS.common.Edge;
 import DS.common.Graph;
 import DS.common.Node;
+import DS.function.Navigator;
 import Page.Page4;
 import org.w3c.dom.ls.LSOutput;
 
@@ -22,23 +23,22 @@ public class SimuNaviPanel extends JPanel {
 	static int startx;
 	static int starty;
 	static Man myMan;
-	public SimuNaviPanel(Graph g1) {
+
+	public int i = 0;
+
+	boolean arriveFlag = false;
+	public SimuNaviPanel(Graph g1, Navigator navi) {
 		// 启动线程
 		g = g1;
-		String tem = Page4.getStart();
-		int n = g.getNameToNodeIndex(tem);
-		Node node = g.getNode(n);
-		int x = node.getPosX();
 		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
 		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
 		// 创建人物对象及其位置
-		myMan = new Man(startx,starty, g1);
+		myMan = new Man(startx,starty, g1, navi);
+		arriveFlag = myMan.getArriveFlag();
 		SimuNaviThread my = new SimuNaviThread();
 		my.start();
 	}
 
-	// 导航結束的变量
-	boolean arriveFlag = false;
 	
 	// 定义和加载地图背景图片
 	static Image bjImg;
@@ -63,6 +63,9 @@ public class SimuNaviPanel extends JPanel {
 		
 		// 画人像
 		myMan.paint(g);
+		arriveFlag = myMan.getArriveFlag();
+		if(myMan.geti() > i)
+			i++;
 
 		// 设置颜色
 		g.setColor(Color.BLACK);
@@ -75,10 +78,7 @@ public class SimuNaviPanel extends JPanel {
 			public void run() {
 				while(true){
 					// 如果导航结束标志为真,停止线程
-					if(arriveFlag && !myMan.getArriveFlag()) {
-						// 停止播放音乐
-						//ac.stop();
-						// 停止线程
+					if(myMan.getArriveFlag()) {
 						return;
 					}
 					

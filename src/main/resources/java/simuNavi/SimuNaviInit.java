@@ -80,7 +80,7 @@ public class SimuNaviInit extends JFrame {
 		this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
 		// 将Panel放在主界面中
-		this.setContentPane(new SimuNaviPanel(g));
+		this.setContentPane(new SimuNaviPanel(g, nav));
 
 		// 设置窗口的可见性,默认为不可见的（一定要在主界面类的构造函数的末尾再设置！！！！！！！！）
 		this.setVisible(true);

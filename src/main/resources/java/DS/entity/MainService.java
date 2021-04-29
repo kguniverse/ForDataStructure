@@ -13,7 +13,6 @@ public class MainService {
     public static void main(String[] args) {
         Page0 helloPage = new Page0();
         helloPage.page();
-
         //TODO：读入完成(over)
         //TODO：日志模块 (over)
         //TODO：界面（命令行，能用就行）(over)
