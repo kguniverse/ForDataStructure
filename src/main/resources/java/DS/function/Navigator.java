@@ -46,7 +46,7 @@ public class Navigator {
     public void setBeginNum(int x){beginNum = x;}
     public void setEndNum(int x){endNum = x;}
     public void setStrategy(int x){
-        if(x == 1) strategy = new Strategy1();
+        if(x == 1) strategy = new StrategyOfLength();
         else if(x == 2) strategy = new Strategy2();
         else if(x == 3) strategy = new Strategy3();
         else if(x == 4) strategy = new Strategy4();

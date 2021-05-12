@@ -5,9 +5,9 @@ import DS.function.*;
 
 import java.util.Comparator;
 
-public class Strategy1 extends Strategy{
+public class StrategyOfLength extends Strategy{
 
-    public Strategy1(){
+    public StrategyOfLength(){
         cmp = new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
