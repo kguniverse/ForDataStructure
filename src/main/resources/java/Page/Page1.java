@@ -1,5 +1,5 @@
 package Page;
-
+import readinFiles.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,9 +35,19 @@ public class Page1 {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                Page2 user = new Page2();
-                user.page();
+                if(read_user.user_map.containsKey(userText.getText())) {
+                    if(read_user.user_map.get(userText.getText()).getPass().equals(passwordText.getText())) {
+                        frame.dispose();
+                        Page2 user = new Page2();
+                        user.page();
+                    }
+                }
+                else {
+                    userText.setText("");
+                    passwordText.setText("");
+
+                }
+
             }
         });
         loginButton.setBounds(260, 150, 80, 25);

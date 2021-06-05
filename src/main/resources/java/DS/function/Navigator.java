@@ -1,10 +1,10 @@
 package DS.function;
-import Page.Page4;
 
 import DS.common.*;
 import DS.function.stratrgyPack.*;
 import java.util.*;
 import MyLog.Mylog;
+import Page.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,14 @@ public class Navigator {
         buffer = new Vector<>();
         setBeginNum = false;
     }
+    //不含必经点
     public void setBeginNumByPage(){
+        this.beginNum = g.getNameToNodeIndex(Page4.getStart());
+        this.endNum = g.getNameToNodeIndex(Page4.getEnd());
+        setBeginNum = true;
+    }
+    //包含必经点
+    public void setBeginNumByPage(int type){
         this.beginNum = g.getNameToNodeIndex(Page4.getStart());
         this.endNum = g.getNameToNodeIndex(Page4.getEnd());
         setBeginNum = true;
