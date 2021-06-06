@@ -14,6 +14,7 @@ public class Page0 {
         System.out.println(formatter.format(date));
         //读入地图文件
         readGraph readgra = new readGraph();
+        //读入用户文件
         read_user readUser = new read_user();
         // 创建 JFrame 实例
         JFrame frame = new JFrame("智慧校园导览系统");

@@ -17,9 +17,9 @@ import java.awt.event.ActionListener;
 public class SimuNaviPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// 构造方法,用于调用线程
-	private static Graph g;
-	static int startx;
-	static int starty;
+	private Graph g;
+	private int startx;
+	private int starty;
 	static Man myMan;
 	private int location;
 	boolean arriveFlag = false;
@@ -85,8 +85,8 @@ public class SimuNaviPanel extends JPanel {
 		this.add(change);
 
 		g = g1;
-		startx = g.getNode(Graph.getNameToNodeIndex(Page4.getStart())).getPosX();
-		starty = g.getNode(Graph.getNameToNodeIndex(Page4.getStart())).getPosY();
+		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
+		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
 		// 创建人物对象及其位置
 		myMan = new Man(startx,starty, g1, navi);
 		arriveFlag = myMan.getArriveFlag();

@@ -7,6 +7,7 @@ import MyLog.Mylog;
 import Page.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import readinFiles.readGraph;
 
 public class Navigator {
     final Logger logger = LoggerFactory.getLogger(Navigator.class);
@@ -20,7 +21,7 @@ public class Navigator {
     private int cannotApproach;
     private boolean setBeginNum;
 
-    public Navigator(){ g = new Graph(); }
+    public Navigator(){ g = readGraph.g; }
     public Navigator(Graph g1){
         g = g1;
         route = new Vector<>();

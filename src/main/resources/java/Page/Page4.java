@@ -2,12 +2,15 @@
 package Page;
 
 import DS.common.Graph;
+import DS.function.Navigator;
 import simuNavi.SimuNaviInit;
+import readinFiles.readGraph;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Page4 {
     private static String start;
@@ -46,9 +49,8 @@ public class Page4 {
             public void actionPerformed(ActionEvent e) {
                 start = startText.getText();
                 end = endText.getText();
-
-                if(Graph.getNameToNodeIndex(start) != -1 && Graph.getNameToNodeIndex(end) != -1)
-                    new SimuNaviInit().simuInit();
+                if(readGraph.g.getNameToNodeIndex(start) != -1 &&readGraph.g.getNameToNodeIndex(end) != -1)
+                    new SimuNaviInit().simuInit(null);
                 else {
                     startText.setText("");
                     endText.setText("");
@@ -131,18 +133,20 @@ public class Page4 {
         frame.add(panel, BorderLayout.CENTER);
         frame.add(jScrollPane1, BorderLayout.EAST);
 
-
         JButton confirm = new JButton("确定");
         confirm.setBounds(120,130, 120, 25);
         panel.add(confirm);
+        ArrayList<Integer> go_by = new ArrayList<>();
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 start = startText.getText();
                 end = endText.getText();
-                /*
-                TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
-                 */
-                new SimuNaviInit().simuInit();
+                for(int i = 0; i < num; i++) {
+                    int index = readGraph.g.getNameToNodeIndex(items[i]);
+                    if(index != -1)
+                        go_by.add(index);
+                }
+                new SimuNaviInit().simuInit(go_by);
             }
         });
 
@@ -184,8 +188,8 @@ public class Page4 {
             public void actionPerformed(ActionEvent e) {
                 end = endText.getText();
                 start = new_start;
-                if(Graph.getNameToNodeIndex(start) != -1 && Graph.getNameToNodeIndex(end) != -1)
-                    new SimuNaviInit().simuInit();
+                if(readGraph.g.getNameToNodeIndex(start) != -1 && readGraph.g.getNameToNodeIndex(end) != -1)
+                    new SimuNaviInit().simuInit(null);
                 else {
                     endText.setText("");
                     Clash.Building_clash();
