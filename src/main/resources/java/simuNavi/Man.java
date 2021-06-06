@@ -13,7 +13,8 @@ public class Man {
 	private int beginy;
 	private int x;
 	private int y;
-	private Navigator nav;
+	static public Navigator nav;
+	static public int type = 1;
 	private boolean arriveFlag = false;
 	private Graph gra;
 	public boolean getArriveFlag() {
@@ -27,7 +28,8 @@ public class Man {
 	public int geti() {
 		return i;
 	}
-
+	public int getX() { return x; }
+	public int getY() { return y; }
 	// 构造方法
 	public Man(int x,int y, Graph g, Navigator navi) {
 		nav = navi;
@@ -39,12 +41,7 @@ public class Man {
 		beginy = y;
 	}
 
-	
 	// 人物图片
-	static Image manImgLeft;
-	static Image manImgRight;
-	static Image manImgUp;
-	static Image manImgDown;
 	static Image manImgSign;
 	static Image manImageCar;
 	static Image manImageBike;
@@ -52,12 +49,7 @@ public class Man {
 	
 	// 工具包类
 	static Toolkit tk =Toolkit.getDefaultToolkit();
-	
 	static {
-		manImgLeft = tk.createImage(Man.class.getClassLoader().getResource("Image/left.jpg"));
-		manImgRight = tk.createImage(Man.class.getClassLoader().getResource("Image/right.jpg"));
-		manImgUp = tk.createImage(Man.class.getClassLoader().getResource("Image/up.png"));
-		manImgDown = tk.createImage(Man.class.getClassLoader().getResource("Image/down.jpg"));
 		manImgSign = tk.createImage(Man.class.getClassLoader().getResource("Image/sign.png"));
 		manImageBike = tk.createImage(Man.class.getClassLoader().getResource("Image/bike.jpeg"));
 		manImageCar = tk.createImage(Man.class.getClassLoader().getResource("Image/car.jpeg"));
@@ -95,43 +87,43 @@ public class Man {
 					xx -= 50;
 			}
 		}
-		int type = nav.getRouteEdge().get(i).getType();
-		if(type == 3)
+		type = nav.getRouteEdge().get(i).getType();
+		if(type == 1)
 			g.drawImage(manImageCar, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 		else if(type == 2)
 			g.drawImage(manImageBike, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 		else
 			g.drawImage(manImageMan, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 
-			if(gra.getNode(nav.getRoute(i)).getPosY() > y) {
-				y++;
-				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
-					i++;
-				//g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-			}
-			else if(gra.getNode(nav.getRoute(i)).getPosY() < y) {
-				y--;
-				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
-					i++;
-				//g.drawImage(manImgUp, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-			}
-			else if(gra.getNode(nav.getRoute(i)).getPosX() < x) {
-				x--;
-				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
-					i++;
-				//g.drawImage(manImgLeft, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-			}
-			else if(gra.getNode(nav.getRoute(i)).getPosX() > x) {
-				x++;
-				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
-					i++;
-				//g.drawImage(manImgRight, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-			}
-			if(i == numOfNodes) {
-				arriveFlag = true;
-				g.setFont(new Font("宋体", Font.BOLD , 60));
-				g.drawString("恭喜你到达目的地！", 200, 300);
-			}
+		if(gra.getNode(nav.getRoute(i)).getPosY() > y) {
+			y++;
+			if(gra.getNode(nav.getRoute(i)).getPosY() == y)
+				i++;
+			//g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+		}
+		else if(gra.getNode(nav.getRoute(i)).getPosY() < y) {
+			y--;
+			if(gra.getNode(nav.getRoute(i)).getPosY() == y)
+				i++;
+			//g.drawImage(manImgUp, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+		}
+		else if(gra.getNode(nav.getRoute(i)).getPosX() < x) {
+			x--;
+			if(gra.getNode(nav.getRoute(i)).getPosX() == x)
+				i++;
+			//g.drawImage(manImgLeft, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+		}
+		else if(gra.getNode(nav.getRoute(i)).getPosX() > x) {
+			x++;
+			if(gra.getNode(nav.getRoute(i)).getPosX() == x)
+				i++;
+			//g.drawImage(manImgRight, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+		}
+		if(i == numOfNodes) {
+			arriveFlag = true;
+			g.setFont(new Font("宋体", Font.BOLD , 60));
+			g.drawString("恭喜你到达目的地！", 200, 300);
+		}
 	}
 
 	//TODO：两个校区之间，美化

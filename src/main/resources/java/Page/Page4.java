@@ -1,6 +1,7 @@
 //定点导航
 package Page;
 
+import DS.common.Graph;
 import simuNavi.SimuNaviInit;
 import javax.swing.*;
 import java.awt.*;
@@ -45,10 +46,14 @@ public class Page4 {
             public void actionPerformed(ActionEvent e) {
                 start = startText.getText();
                 end = endText.getText();
-                /*
-                TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
-                 */
-                new SimuNaviInit();
+
+                if(Graph.getNameToNodeIndex(start) != -1 && Graph.getNameToNodeIndex(end) != -1)
+                    new SimuNaviInit();
+                else {
+                    startText.setText("");
+                    endText.setText("");
+                    Clash.Building_clash();
+                }
             }
         });
 

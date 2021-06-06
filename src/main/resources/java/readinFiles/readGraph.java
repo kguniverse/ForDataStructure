@@ -4,12 +4,14 @@ import DS.common.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class readGraph {
     //Todo:程序入口：先读入地点信息后建图。
     public static ArrayList<Edge> edges = new ArrayList<>();
     public static ArrayList<Node> nodes = new ArrayList<>();
+    public static Graph g;
     public readGraph() {
         try {
             Scanner scEdge = new Scanner(Paths.get("src/main/resources/java/readinFiles/edges.txt"));
@@ -38,5 +40,6 @@ public class readGraph {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        g = new Graph(readGraph.edges, readGraph.nodes);
     }
 }

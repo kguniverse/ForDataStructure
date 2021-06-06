@@ -29,14 +29,16 @@ public class SimuNaviInit extends JFrame {
 			// 设置窗口的大小: 宽 高
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
-		else{
+		else if(location == 2){
 			Campus campus = new Campus();
 			// 设置窗口的大小: 宽 高
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
+		else {
+			//TODO
+		}
 
-		Graph g = new Graph(readGraph.edges, readGraph.nodes);
-		Navigator nav = new Navigator(g);
+		Navigator nav = new Navigator(readGraph.g);
 
 		//TODO:导航模块初始化
 		nav.setBeginNumByPage();
@@ -48,7 +50,7 @@ public class SimuNaviInit extends JFrame {
 		this.setTitle("智慧校园导览系统");
 		this.setResizable(true);
 		this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-		this.setContentPane(new SimuNaviPanel(g, nav, location));
+		this.setContentPane(new SimuNaviPanel(readGraph.g, nav, location));
 		this.setVisible(true);
 	}
 

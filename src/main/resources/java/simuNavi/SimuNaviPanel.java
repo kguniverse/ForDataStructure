@@ -1,6 +1,7 @@
 package simuNavi;
 
 import DS.common.Graph;
+import DS.function.FindLocation;
 import DS.function.Navigator;
 import Page.*;
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class SimuNaviPanel extends JPanel {
 	private int location;
 	boolean arriveFlag = false;
 	boolean ifStop = true;
+	boolean findLocal = false;
 
 	public SimuNaviPanel(Graph g1, Navigator navi, int location) {
 		if(location == 1) {
@@ -78,8 +80,8 @@ public class SimuNaviPanel extends JPanel {
 		this.add(change);
 
 		g = g1;
-		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
-		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
+		startx = g.getNode(Graph.getNameToNodeIndex(Page4.getStart())).getPosX();
+		starty = g.getNode(Graph.getNameToNodeIndex(Page4.getStart())).getPosY();
 		// 创建人物对象及其位置
 		myMan = new Man(startx,starty, g1, navi);
 		arriveFlag = myMan.getArriveFlag();
@@ -135,12 +137,22 @@ public class SimuNaviPanel extends JPanel {
 					
 					// 重新调用paint方法
 					if(!ifStop)
-					SimuNaviPanel.this.repaint();
+						SimuNaviPanel.this.repaint();
+					else {
+						FindLocation.findlocation(myMan.getX(), myMan.getY());
+						System.out.println("myManX: "+myMan.getX());
+						System.out.println("locationX:  "+FindLocation.location.get(0).getPosX());
+						//System.out.println(FindLocation.location.get(0).getPosY());
+					}
 
 					try {
 						// 休眠10毫秒 然后继续画出所有元素
-
-						sleep(10);
+						if(Man.type == 1)
+							sleep(5);
+						else if(Man.type == 2)
+							sleep(10);
+						else
+							sleep(15);
 					} catch (InterruptedException e) {
 						// 捕获异常并打印栈堆信息
 						e.printStackTrace();
