@@ -8,11 +8,11 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class FindLocation {
-    private static final int distance = 500;
-    public static ArrayList<Node> location = new ArrayList<>();
-    public static void findlocation(int x, int y) {
+    private static final int distance = 150;
+    public static ArrayList<Node> findlocation(int x, int y) {
+        ArrayList<Node> location = new ArrayList<>();
         for(int i = 0; i < readGraph.nodes.size(); i++) {
-            if(Math.abs(readGraph.nodes.get(i).getPosX()-x) + Math.abs(readGraph.nodes.get(i).getPosY()-y) < distance) {
+            if(Math.abs(readGraph.nodes.get(i).getPosX()-x) + Math.abs(readGraph.nodes.get(i).getPosY()-y) < distance && !Character.isDigit(readGraph.nodes.get(i).getName().charAt(0))) {
                 location.add(readGraph.nodes.get(i));
             }
         }
@@ -27,5 +27,6 @@ public class FindLocation {
                 return 0;
             }
         });
+        return location;
     }
 }

@@ -48,7 +48,7 @@ public class Page4 {
                 end = endText.getText();
 
                 if(Graph.getNameToNodeIndex(start) != -1 && Graph.getNameToNodeIndex(end) != -1)
-                    new SimuNaviInit();
+                    new SimuNaviInit().simuInit();
                 else {
                     startText.setText("");
                     endText.setText("");
@@ -138,13 +138,11 @@ public class Page4 {
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 start = startText.getText();
-
-
                 end = endText.getText();
                 /*
                 TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
                  */
-                new SimuNaviInit();
+                new SimuNaviInit().simuInit();
             }
         });
 
@@ -164,7 +162,49 @@ public class Page4 {
     }
 
     //TODO 中途修改目的点，需要查询当前点位置
-    public void change_way(String start, String end) {
+    public void change_way(String new_start) {
+        JFrame frame = new JFrame("校园导览系统");
+        frame.setSize(350, 230);
+        frame.setLocation(170, 455);
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        frame.setVisible(true);
+        panel.setLayout(null);
+        JLabel endLabel = new JLabel("更改终点名");
+        endLabel.setBounds(10,50,80,25);
+        panel.add(endLabel);
+        JTextField endText = new JTextField(20);
+        endText.setBounds(100,50,165,25);
+        panel.add(endText);
 
+        JButton confirm = new JButton("确定");
+        confirm.setBounds(120,100, 120, 25);
+        panel.add(confirm);
+        confirm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                end = endText.getText();
+                start = new_start;
+                if(Graph.getNameToNodeIndex(start) != -1 && Graph.getNameToNodeIndex(end) != -1)
+                    new SimuNaviInit().simuInit();
+                else {
+                    endText.setText("");
+                    Clash.Building_clash();
+                }
+            }
+        });
+
+        //返回上级
+        JButton button = new JButton();
+        button.setBounds(120,150, 120, 25);
+        panel.add(button);
+        button.setText("返回上级");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                Page2 Page = new Page2();
+                Page.page();
+            }
+        });
     }
 }

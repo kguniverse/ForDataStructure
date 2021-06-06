@@ -1,16 +1,41 @@
 //地点查询
 package Page;
 
+import DS.common.Graph;
+import DS.common.Node;
+import DS.function.FindLocation;
+import DS.function.Navigator;
 import simuNavi.SimuNaviInit;
+import readinFiles.readGraph;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Page5 {
+    public void consequence_query(ArrayList<Node> arr) {
+        JFrame jframe = new JFrame("查询结果");
+        jframe.setBounds(100,100,300,200);
+        JPanel contentPane=new JPanel();
+        contentPane.setLayout(new BorderLayout(0, 0));
+        jframe.setContentPane(contentPane);
+        JScrollPane scrollPane=new JScrollPane();
+        contentPane.add(scrollPane,BorderLayout.CENTER);
+        JList list=new JList();
+        scrollPane.setViewportView(list);
+        String[] listData=new String[10];
+        for (int i = 0; i< arr.size(); i++)
+        {
+            listData[i] = arr.get(i).getName();    //为数组中各个元素赋值
+        }
+        list.setListData(listData);    //为列表填充数据
+        jframe.setVisible(true);
+    }
     public void query_buildings() {
         JFrame frame = new JFrame("地点查询");
         frame.setSize(350, 230);
@@ -19,23 +44,25 @@ public class Page5 {
         frame.add(panel);
         frame.setVisible(true);
         panel.setLayout(null);
-        JLabel startLabel = new JLabel("查询点");
-        startLabel.setBounds(10,20,80,50);
-        panel.add(startLabel);
-        JTextField startText = new JTextField(20);
-        startText.setBounds(100,20,165,50);
-        panel.add(startText);
+        JLabel queryLabel = new JLabel("查询点");
+        queryLabel.setBounds(10,20,80,50);
+        panel.add(queryLabel);
+        JTextField queryText = new JTextField(20);
+        queryText.setBounds(100,20,165,50);
+        panel.add(queryText);
 
         JButton confirm = new JButton("确定");
         confirm.setBounds(120,100, 120, 25);
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*
-                TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
-                 */
-                //if()
-                new SimuNaviInit();
+                if(Graph.getNameToNodeIndex(queryText.getText()) != -1) {
+                    consequence_query(FindLocation.findlocation(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(queryText.getText())).getPosX(), readGraph.g.getNode(readGraph.g.getNameToNodeIndex(queryText.getText())).getPosY()));
+                    frame.dispose();
+                }
+                else {
+                    Clash.Building_clash();
+                }
             }
         });
 
