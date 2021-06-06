@@ -138,8 +138,9 @@ public class SimuNaviPanel extends JPanel {
 					SimuNaviPanel.this.repaint();
 
 					try {
-						// 休眠30毫秒 然后继续画出所有元素
-						sleep(10); // 30毫秒   1秒=1000毫秒
+						// 休眠10毫秒 然后继续画出所有元素
+
+						sleep(10);
 					} catch (InterruptedException e) {
 						// 捕获异常并打印栈堆信息
 						e.printStackTrace();

@@ -163,6 +163,9 @@ public class Navigator {
     public int getRoute(int index) {
         return route.get(index).getTo();
     }
+
+    public Vector<Edge> getRouteEdge() { return route; }
+
     public int getNum() {
         return route.size();
     }

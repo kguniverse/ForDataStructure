@@ -46,6 +46,9 @@ public class Man {
 	static Image manImgUp;
 	static Image manImgDown;
 	static Image manImgSign;
+	static Image manImageCar;
+	static Image manImageBike;
+	static Image manImageMan;
 	
 	// 工具包类
 	static Toolkit tk =Toolkit.getDefaultToolkit();
@@ -56,6 +59,9 @@ public class Man {
 		manImgUp = tk.createImage(Man.class.getClassLoader().getResource("Image/up.png"));
 		manImgDown = tk.createImage(Man.class.getClassLoader().getResource("Image/down.jpg"));
 		manImgSign = tk.createImage(Man.class.getClassLoader().getResource("Image/sign.png"));
+		manImageBike = tk.createImage(Man.class.getClassLoader().getResource("Image/bike.jpeg"));
+		manImageCar = tk.createImage(Man.class.getClassLoader().getResource("Image/car.jpeg"));
+		manImageMan = tk.createImage(Man.class.getClassLoader().getResource("Image/man.jpeg"));
 	}
 	// 画出人物
 
@@ -89,30 +95,37 @@ public class Man {
 					xx -= 50;
 			}
 		}
+		int type = nav.getRouteEdge().get(i).getType();
+		if(type == 3)
+			g.drawImage(manImageCar, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+		else if(type == 2)
+			g.drawImage(manImageBike, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+		else
+			g.drawImage(manImageMan, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 
 			if(gra.getNode(nav.getRoute(i)).getPosY() > y) {
 				y++;
 				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
 					i++;
-				g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+				//g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
 			else if(gra.getNode(nav.getRoute(i)).getPosY() < y) {
 				y--;
 				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
 					i++;
-				g.drawImage(manImgUp, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+				//g.drawImage(manImgUp, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
 			else if(gra.getNode(nav.getRoute(i)).getPosX() < x) {
 				x--;
 				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
 					i++;
-				g.drawImage(manImgLeft, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+				//g.drawImage(manImgLeft, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
 			else if(gra.getNode(nav.getRoute(i)).getPosX() > x) {
 				x++;
 				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
 					i++;
-				g.drawImage(manImgRight, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+				//g.drawImage(manImgRight, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 			}
 			if(i == numOfNodes) {
 				arriveFlag = true;

@@ -11,14 +11,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 public class read_user {
-    public static ArrayList<User> user;
-    public static Map<String, User> user_map;
+    public static ArrayList<User> user = new ArrayList<User>();
+    public static HashMap<String, User> user_map = new HashMap<String, User>();
+    public static User u;
     public read_user() {
         try {
             String filePath = "src/main/resources/java/readinFiles/user.txt";
@@ -33,6 +35,7 @@ public class read_user {
                 strTmp = buffReader.readLine();
                 user_map.put(us.getID(), us);
                 us.setPass(strTmp);
+                strTmp = buffReader.readLine();
                 String tem = strTmp;
                 for(int i = 0; i < Integer.parseInt(tem); i++) {
                     Schedule sch = new Schedule();

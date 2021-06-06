@@ -1,8 +1,8 @@
 package Page;
 
-import DS.common.Edge;
+import DS.common.Schedule;
 import simuNavi.SimuNaviInit;
-
+import readinFiles.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Page6 {
-    private static String start;
-    private static String end;
-    private static final String[] items = new String[15];
-    public static String getStart() { return start; }
-    public static String getEnd() { return end; }
+    private static String time;
+    private static String site;
+    private static final String[] items = new String[50];
+    public static String getTime() { return time; }
+    public static String getSite() { return site; }
     private int num = 0;
     public void schedule() {
         // 创建 JFrame 实例
@@ -49,9 +49,9 @@ public class Page6 {
         JLabel goByLabel = new JLabel("地点");
         goByLabel.setBounds(10,80,80,25);
         panel.add(goByLabel);
-        JTextField goByText = new JTextField(20);
-        goByText.setBounds(100,80,165,25);
-        panel.add(goByText);
+        JTextField siteText = new JTextField(20);
+        siteText.setBounds(100,80,165,25);
+        panel.add(siteText);
 
         JScrollPane jScrollPane1 = new JScrollPane();    //滚动条panel
         jScrollPane1.setPreferredSize(new Dimension(308, 164));
@@ -60,13 +60,19 @@ public class Page6 {
         jScrollPane1.setViewportView(myJlist);
         jp.add(panel);
         jp.add(jScrollPane1);
-
-        Scanner scEdge = null;
-        try {
-            scEdge = new Scanner(Paths.get("src/main/resources/java/readinFiles/user.txt"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(int i = 0; i < read_user.u.getSchedule().size(); i++) {
+            items[num] += num;
+            items[num] += ". ";
+            items[num] += "  时间：";
+            items[num] +=  read_user.u.getSchedule().get(i).getTime();
+            items[num] += "  事件：";
+            items[num] += read_user.u.getSchedule().get(i).getEvent();
+            items[num] += "  地点：";
+            items[num] += read_user.u.getSchedule().get(i).getSite();
+            items[num] += "                                                               ";
+            jList1Model.addElement(items[num]);
+            siteText.setText("");
+            num++;
         }
 
         JButton add= new JButton("添加");
@@ -74,18 +80,17 @@ public class Page6 {
         panel.add(add);
         add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < num; i++) {
-                    if(timeText.getText() == items[i]) {
-                        Clash crash = new Clash();
-                        crash.time_clash();
-                        break;
+                boolean flag = false;
+                for(int i = 0; i < num && !flag; i++) {
+                    if(timeText.getText().equals(read_user.u.getSchedule().get(i).getTime())) {
+                        Clash.time_clash();
+                        timeText.setText("");
+                        eventText.setText("");
+                        siteText.setText("");
+                        flag = true;
                     }
                 }
-                if(num == 4) {
-                    Clash crash = new Clash();
-                    crash.time_clash();
-                }
-                if(num < 15 && num != 4) {
+                if(!flag) {
                     items[num] += num;
                     items[num] += ". ";
                     items[num] += "  时间：";
@@ -93,11 +98,16 @@ public class Page6 {
                     items[num] += "  事件：";
                     items[num] += eventText.getText();
                     items[num] += "  地点：";
-                    items[num] += goByText.getText();
+                    items[num] += siteText.getText();
                     items[num] += "                                                               ";
                     jList1Model.addElement(items[num]);
-                    goByText.setText("");
+                    siteText.setText("");
                     num++;
+                    Schedule sc = new Schedule();
+                    sc.setTime(timeText.getText());
+                    sc.setEvent(eventText.getText());
+                    sc.setSite(siteText.getText());
+                    read_user.u.setSchedule(sc);
                 }
             }
         });
@@ -111,8 +121,8 @@ public class Page6 {
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                start = timeText.getText();
-                end = eventText.getText();
+                time = timeText.getText();
+                site = eventText.getText();
                 /*
                 TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
                  */
@@ -170,13 +180,6 @@ public class Page6 {
         jp.add(panel);
         jp.add(jScrollPane1);
 
-        Scanner scEdge = null;
-        try {
-            scEdge = new Scanner(Paths.get("src/main/resources/java/readinFiles/user.txt"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         frame.add(panel, BorderLayout.CENTER);
         frame.add(jScrollPane1, BorderLayout.EAST);
@@ -187,8 +190,8 @@ public class Page6 {
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //TODO 计算路径时间
-                start = timeText.getText();
-                end = preLocation.getText();
+                time = timeText.getText();
+                site = preLocation.getText();
                 /*
                 TODO: 需要一个查询函数，查找输入的地点是否存在，以及地点的坐标
                  */

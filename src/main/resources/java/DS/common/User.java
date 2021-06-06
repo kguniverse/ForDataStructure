@@ -1,19 +1,11 @@
 package DS.common;
-public class Schedule {
-    private String time;
-    private String site;
-    private String event;
-    public void setTime(String t) { time = time; }
-    public void setSite(String s) { site = s; }
-    public void setEvent(String e) { event = e; }
-    public String getTime() { return time; }
-    public String getSite() { return site; }
-    public String getEvent() { return event; }
-}
+
+import java.util.ArrayList;
+
 public class User {
     private String ID;
     private String pass;
-    private Schedule schedule;
+    private ArrayList<Schedule> schedule = new ArrayList<Schedule>();
 
     public void setID(String ID) {
         this.ID = ID;
@@ -31,11 +23,11 @@ public class User {
         return pass;
     }
 
-    public Schedule getSchedule() {
+    public ArrayList<Schedule> getSchedule() {
         return schedule;
     }
 
     public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+        this.schedule.add(schedule);
     }
 }

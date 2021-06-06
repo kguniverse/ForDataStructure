@@ -40,12 +40,18 @@ public class Page1 {
                         frame.dispose();
                         Page2 user = new Page2();
                         user.page();
+                        read_user.u = read_user.user_map.get(userText.getText());
+                    }
+                    else {
+                        Clash.IDPass_clash();
+                        userText.setText("");
+                        passwordText.setText("");
                     }
                 }
                 else {
+                    Clash.IDPass_clash();
                     userText.setText("");
                     passwordText.setText("");
-
                 }
 
             }
