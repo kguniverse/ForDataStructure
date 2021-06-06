@@ -22,16 +22,13 @@ public class SimuNaviInit extends JFrame {
 	 * @author DELL
 	 */
 	private static final long serialVersionUID = 1L;
-	//构造方法,当创建类的对象的时候，也就是new的时候自动调用
-	public SimuNaviInit() {
+	public void simuInit() {
 		if(location == 1) {
 			Campus campus = new Campus(1);
-			// 设置窗口的大小: 宽 高
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
 		else if(location == 2){
 			Campus campus = new Campus();
-			// 设置窗口的大小: 宽 高
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
 		else {
@@ -53,5 +50,11 @@ public class SimuNaviInit extends JFrame {
 		this.setContentPane(new SimuNaviPanel(readGraph.g, nav, location));
 		this.setVisible(true);
 	}
+//	public SimuNaviInit() {
+//
+//	}
 
+	public void colse() {
+		this.dispose();
+	}
 }

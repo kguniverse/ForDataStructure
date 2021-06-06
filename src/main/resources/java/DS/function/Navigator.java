@@ -66,7 +66,6 @@ public class Navigator {
         return g.getNode(beginNum) != g.getNode(endNum);
     }
 
-
     public int Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
         int[] dis = new int[Constants.MAXIMUM_Node];

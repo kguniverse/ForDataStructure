@@ -1,4 +1,5 @@
 package simuNavi;
+import DS.common.Edge;
 import DS.common.Graph;
 import DS.common.Node;
 import DS.function.Navigator;
@@ -25,6 +26,7 @@ public class Man {
 	public static final int MAN_HEIGHT = 50;
 	private int numOfNodes;
 	private int i = 0;
+	public void setI(int newI) { i = newI; }
 	public int geti() {
 		return i;
 	}
@@ -87,7 +89,11 @@ public class Man {
 					xx -= 50;
 			}
 		}
-		type = nav.getRouteEdge().get(i).getType();
+		if(i < nav.getRouteEdge().size())
+			type = nav.getRouteEdge().get(i).getType();
+		else {
+			i = 0;
+		}
 		if(type == 1)
 			g.drawImage(manImageCar, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 		else if(type == 2)

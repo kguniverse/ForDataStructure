@@ -86,7 +86,8 @@ public class Page2 {
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Page5 findLocation = new Page5();
+                findLocation.query_buildings();
             }
         });
 

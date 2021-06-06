@@ -58,20 +58,25 @@ public class SimuNaviPanel extends JPanel {
 		begin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				findLocal = false;
 				ifStop = false;
 			}
 		});
 		inquire.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ifStop = true;
+				findLocal = true;
 			}
 		});
 		change.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				findLocal = true;
 				Page4 change = new Page4();
-				change.navigate_single();
+				String tem = FindLocation.findlocation(myMan.getX(), myMan.getY()).get(0).getName();
+				myMan.setI(0);
+				change.change_way(tem);
+				//new SimuNaviInit().dispose();
 			}
 		});
 		this.add(stop);
@@ -136,13 +141,15 @@ public class SimuNaviPanel extends JPanel {
 					}
 					
 					// 重新调用paint方法
-					if(!ifStop)
+					if(!ifStop && !findLocal)
 						SimuNaviPanel.this.repaint();
-					else {
-						FindLocation.findlocation(myMan.getX(), myMan.getY());
-						System.out.println("myManX: "+myMan.getX());
-						System.out.println("locationX:  "+FindLocation.location.get(0).getPosX());
-						//System.out.println(FindLocation.location.get(0).getPosY());
+					else if(findLocal){
+						if(!ifStop) {
+							Page5 findlocal = new Page5();
+							findlocal.consequence_query(FindLocation.findlocation(myMan.getX(), myMan.getY()));
+						}
+
+						ifStop = true;
 					}
 
 					try {
@@ -152,7 +159,7 @@ public class SimuNaviPanel extends JPanel {
 						else if(Man.type == 2)
 							sleep(10);
 						else
-							sleep(15);
+							sleep(20);
 					} catch (InterruptedException e) {
 						// 捕获异常并打印栈堆信息
 						e.printStackTrace();
