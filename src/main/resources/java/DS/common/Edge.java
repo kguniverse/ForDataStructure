@@ -42,6 +42,7 @@ public class Edge{
     public int getFrom() {return from;}
     public int getTo() {return to;}
     public int getId() {return id;}
+    public int getType() { return type; }
 
     public void setLength(int length){ this.length = length; }
     public void showInDos(){

@@ -1,12 +1,20 @@
 package Page;
-
+import readinFiles.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Page0 {
     public void page() {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date));
+        //读入地图文件
+        readGraph readgra = new readGraph();
+        read_user readUser = new read_user();
         // 创建 JFrame 实例
         JFrame frame = new JFrame("智慧校园导览系统");
         frame.setSize(600, 800);
@@ -43,7 +51,6 @@ public class Page0 {
         JLabel im = new JLabel(image);
         im.setBounds(0, 200, 600, 600);
         frame.add(im);
-
         jpnel.setBackground(Color.pink);
         frame.add(jpnel);
         frame.setVisible(true);

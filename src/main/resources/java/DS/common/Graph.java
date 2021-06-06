@@ -4,12 +4,12 @@ import java.util.*;
 
 public class Graph{
     private Vertex[] e1;
-    private HashMap<String, Integer> nameToNodeIndex;
+    private static HashMap<String, Integer> nameToNodeIndex;
     private HashMap<Integer, String> nodeIndexToName;
 
     private int totalNodeNum;
     private HashMap<Integer, Edge> edges;
-    private HashMap<Integer, Node> nodes;
+    private static HashMap<Integer, Node> nodes;
 
     public int getNodeNum(){return totalNodeNum;}
 
@@ -50,7 +50,10 @@ public class Graph{
     public Edge getEdge(int index) {
         return edges.get(index);
     }
-    public int getNameToNodeIndex(String name) {
+
+    public static int getNameToNodeIndex(String name) {
+        if(!nameToNodeIndex.containsKey(name))
+            return -1;
         return nameToNodeIndex.get(name);
     }
     public String getNodeIndexToName(int index) {
