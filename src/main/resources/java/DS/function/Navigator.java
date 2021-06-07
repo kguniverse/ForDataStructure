@@ -62,6 +62,7 @@ public class Navigator {
         else if(x == 4) strategy = new Strategy4();
     }
     public void setWaytoPoint(ArrayList<Integer> wayToPoint){
+
         this.wayToPoint = wayToPoint;
     }
 
