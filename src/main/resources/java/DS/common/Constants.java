@@ -6,8 +6,8 @@ public class Constants {
     public static int NowEdgeNum = 0;
     public static int NowNodeNum = 0;
     public static int inf = 0x3f3f3f3f;
-    public static int INITIAL_TEMPERATURE = 10000005;
+    public static int INITIAL_TEMPERATURE = 100005;
     public static int MIN_TEMPERATURE = 100;
     public static int LEGNTH_Mapkob = 200;
-    public static double SPEED = 0.8;
+    public static double SPEED = 0.98;
 }

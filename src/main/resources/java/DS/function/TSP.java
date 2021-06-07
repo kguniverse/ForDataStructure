@@ -7,7 +7,6 @@ import java.util.*;
 public class TSP {
     private Matrix G;
     private ArrayList<Integer> wayToPoint;
-    private HashMap<Integer, Integer> reflectToNum;
     private TSP_solution bestSolution;
     private int start, end;
 
@@ -20,7 +19,7 @@ public class TSP {
     private int CalculateLength(TSP_solution newSolution){
         int _length = 0;
 
-        for (int i = 1; i < G.vex_num; i++)
+        for (int i = 0; i < G.vex_num - 1; i++)
         {
             int _startCity = newSolution.path[i];
             int _endCity = newSolution.path[i + 1];
@@ -32,7 +31,7 @@ public class TSP {
                 _length += G.arcs[_startCity][_endCity];
             }
         }
-        _length += G.arcs[newSolution.path[0]][newSolution.path[1]] + G.arcs[newSolution.path[G.vex_num]][newSolution.path[G.vex_num + 1]];
+//        _length += G.arcs[newSolution.path[0]][newSolution.path[1]] + G.arcs[newSolution.path[G.vex_num]][newSolution.path[G.vex_num + 1]];
         // cout<<"_length = "<<_length<<endl;
         return _length;
 
@@ -44,8 +43,8 @@ public class TSP {
         // 起始城市固定为A, 终点也要返回A, 即需要关注起点A和终点A之间的所有城市
 //        int i = rand() % (G.vex_num - 1) + 1;	// % 取余 -> 即将随机数控制在[1, G.vex_num - 1]
 //        int j = rand() % (G.vex_num - 1) + 1;
-        int i = (int)(Math.random() * G.vex_num) + 1;
-        int j = (int)(Math.random() * G.vex_num) + 1;
+        int i = (int)(Math.random() * (G.vex_num - 2)) + 1;
+        int j = (int)(Math.random() * (G.vex_num - 2)) + 1;
         if (i > j)
         {
             int temp = i;
@@ -74,7 +73,7 @@ public class TSP {
             }
         }
         else{	// 随机移位城市的位置
-            if (j + 1 == G.vex_num) //边界处不处理
+            if (j + 1 == G.vex_num - 2) //边界处不处理
             {
                 return newSolution;
             }
@@ -97,7 +96,7 @@ public class TSP {
             }
         }
         // 载入起点与终点
-        newSolution.path[G.vex_num] = wayToPoint.get(wayToPoint.size() - 1);
+//        newSolution.path[G.vex_num] = wayToPoint.get(wayToPoint.size() - 1);
 
         newSolution.length_path = CalculateLength(newSolution);
         return newSolution;
@@ -110,14 +109,14 @@ public class TSP {
         double Current_Temperature = Constants.INITIAL_TEMPERATURE;
 
         // 最优解
-        TSP_solution Best_solution = new TSP_solution();
+        TSP_solution Best_solution = new TSP_solution(G.vex_num);
         Best_solution.length_path = Constants.inf;
         // 初始路径
-        for (int i = 1; i <= G.vex_num; i++)
+        for (int i = 0; i < G.vex_num; i++)
         {
             Best_solution.path[i] = i;
         }
-        ArrayUtils.shuffle(Best_solution.path, 1, G.vex_num - 1);
+        ArrayUtils.shuffle(Best_solution.path, 1, G.vex_num - 2);
 
         // 当前解, 与最优解比较
         TSP_solution Current_solution;
@@ -145,33 +144,48 @@ public class TSP {
 
         return Best_solution;
     }
+    int getInitNum(int index){
+        return G.getInitNum(index);
+    }
     //TODO:未测试
 }
 
 class Matrix{
     public int[][] arcs;
     public int vex_num, arc_num;
+    private HashMap<Integer, Integer> reflectToNum;
+    private HashMap<Integer, Integer> inv;
 
     public Matrix(Navigator Navi, int n){
-        vex_num = n;
+        reflectToNum = new HashMap<>();
+        inv = new HashMap<>();
+        vex_num = n + 2;
         ArrayList<Integer> wayToBy = new ArrayList<>();
         wayToBy.add(Navi.getBeginNum());
         wayToBy.addAll(Navi.getWayToPoint());
         wayToBy.add(Navi.getEndNum());
+        for(int i = 0; i < vex_num; i++){
+            reflectToNum.put(i, wayToBy.get(i));
+            inv.put(wayToBy.get(i), i);
+        }
         arcs = new int[wayToBy.size() + 5][];
         //init
-        for(int i = 0; i < wayToBy.size() + 5; i++){
+        for(int i = 0; i < vex_num + 5; i++) {
             arcs[i] = new int[wayToBy.size() + 5];
         }
-        for(int i = 0; i < wayToBy.size(); i++){
-            for(int j = 0; j < wayToBy.size(); j++){
+        for(int i = 0; i < vex_num; i++){
+            for(int j = 0; j < vex_num; j++){
                 if(i == j) arcs[i][j] = 0;
                 else{
                     arcs[i][j] = Navi.Dijkstra(wayToBy.get(i), wayToBy.get(j));
+                    Navi.clearRoute();
                     arcs[j][i] = arcs[i][j];
                 }
             }
         }
+    }
+    int getInitNum(int index){
+        return reflectToNum.get(index);
     }
 }
 
@@ -181,9 +195,14 @@ class TSP_solution{
     public Integer[] path;
     private HashMap<Integer, Integer> inv;
 
-    public int getInitNum(int x){
-        return inv.get(x);
+    public TSP_solution(int x) {
+        path = new Integer[x + 5];
+        inv = new HashMap<>();
     }
+
+//    public int getInitNum(int x){
+//        return inv.get(x);
+//    }
 }
 
 class ArrayUtils {
