@@ -1,5 +1,7 @@
 package DS.common;
 
+import DS.exception.RepeatidException;
+
 import java.util.*;
 
 public class Graph{
@@ -14,7 +16,7 @@ public class Graph{
     public int getNodeNum(){return totalNodeNum;}
 
     public Graph(){}
-    public Graph(ArrayList<Edge> edges, ArrayList<Node> nodes){
+    public Graph(ArrayList<Edge> edges, ArrayList<Node> nodes) throws RepeatidException {
         this.edges = new HashMap<>();
         this.nodes = new HashMap<>();
         for(Edge x : edges){
@@ -23,7 +25,8 @@ public class Graph{
         }
         for(Node x : nodes){
             int id = x.getId();
-            this.nodes.put(id, x);
+            if(this.nodes.get(id) == null) this.nodes.put(id, x);
+            else throw new RepeatidException("点id重复：" + id);
         }
         this.totalNodeNum = nodes.size();
         e1 = new Vertex[Constants.MAXIMUM_Node];
