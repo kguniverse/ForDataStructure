@@ -46,7 +46,9 @@ public class Graph{
         head.addNextVertex(e);
     }
     public Node getNode(int index) {
-        return nodes.get(index);
+        Node ret = nodes.get(index);
+         if(ret == null) System.out.println("11112313142141                 " + index);
+         return ret;
     }
     public Edge getEdge(int index) {
         return edges.get(index);

@@ -13,11 +13,17 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Page4 {
+    private static String initStart;
+    private static String initEnd;
     private static String start;
     private static String end;
     private static final String[] items = new String[15];
     public static String getStart() { return start; }
     public static String getEnd() { return end; }
+    public static void setStart(String s) { start = s; }
+    public static void setEnd(String e) { end = e; }
+    public static String getInitStart() { return initStart; }
+    public static String getInitEnd() { return initEnd; }
     private int num = 0;
 
     public void navigate_single() {
@@ -49,6 +55,8 @@ public class Page4 {
             public void actionPerformed(ActionEvent e) {
                 start = startText.getText();
                 end = endText.getText();
+                initEnd = end;
+                initStart = start;
                 if(readGraph.g.getNameToNodeIndex(start) != -1 &&readGraph.g.getNameToNodeIndex(end) != -1)
                     new SimuNaviInit().simuInit(null);
                 else {
