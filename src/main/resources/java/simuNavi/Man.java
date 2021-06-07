@@ -89,42 +89,41 @@ public class Man {
 					xx -= 50;
 			}
 		}
-		if(i < nav.getRouteEdge().size())
+		if(i < nav.getRouteEdge().size()) {
 			type = nav.getRouteEdge().get(i).getType();
-		else {
-			i = 0;
-		}
-		if(type == 1)
-			g.drawImage(manImageCar, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-		else if(type == 2)
-			g.drawImage(manImageBike, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-		else
-			g.drawImage(manImageMan, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			if(type == 1)
+				g.drawImage(manImageCar, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			else if(type == 2)
+				g.drawImage(manImageBike, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			else
+				g.drawImage(manImageMan, x, y, MAN_WIDTH, MAN_HEIGHT, null);
 
-		if(gra.getNode(nav.getRoute(i)).getPosY() > y) {
-			y++;
-			if(gra.getNode(nav.getRoute(i)).getPosY() == y)
-				i++;
-			//g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			if(gra.getNode(nav.getRoute(i)).getPosY() > y) {
+				y++;
+				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
+					i++;
+				//g.drawImage(manImgDown, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			}
+			else if(gra.getNode(nav.getRoute(i)).getPosY() < y) {
+				y--;
+				if(gra.getNode(nav.getRoute(i)).getPosY() == y)
+					i++;
+				//g.drawImage(manImgUp, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			}
+			else if(gra.getNode(nav.getRoute(i)).getPosX() < x) {
+				x--;
+				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
+					i++;
+				//g.drawImage(manImgLeft, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			}
+			else if(gra.getNode(nav.getRoute(i)).getPosX() > x) {
+				x++;
+				if(gra.getNode(nav.getRoute(i)).getPosX() == x)
+					i++;
+				//g.drawImage(manImgRight, x, y, MAN_WIDTH, MAN_HEIGHT, null);
+			}
 		}
-		else if(gra.getNode(nav.getRoute(i)).getPosY() < y) {
-			y--;
-			if(gra.getNode(nav.getRoute(i)).getPosY() == y)
-				i++;
-			//g.drawImage(manImgUp, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-		}
-		else if(gra.getNode(nav.getRoute(i)).getPosX() < x) {
-			x--;
-			if(gra.getNode(nav.getRoute(i)).getPosX() == x)
-				i++;
-			//g.drawImage(manImgLeft, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-		}
-		else if(gra.getNode(nav.getRoute(i)).getPosX() > x) {
-			x++;
-			if(gra.getNode(nav.getRoute(i)).getPosX() == x)
-				i++;
-			//g.drawImage(manImgRight, x, y, MAN_WIDTH, MAN_HEIGHT, null);
-		}
+
 		if(i == numOfNodes) {
 			arriveFlag = true;
 			g.setFont(new Font("宋体", Font.BOLD , 60));

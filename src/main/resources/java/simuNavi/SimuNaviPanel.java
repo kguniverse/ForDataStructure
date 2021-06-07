@@ -3,6 +3,7 @@ package simuNavi;
 import DS.common.Graph;
 import DS.function.FindLocation;
 import DS.function.Navigator;
+import readinFiles.readGraph;
 import Page.*;
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,6 @@ import java.awt.event.ActionListener;
 public class SimuNaviPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// 构造方法,用于调用线程
-	private Graph g;
 	private int startx;
 	private int starty;
 	static Man myMan;
@@ -76,7 +76,6 @@ public class SimuNaviPanel extends JPanel {
 				String tem = FindLocation.findlocation(myMan.getX(), myMan.getY()).get(0).getName();
 				myMan.setI(0);
 				change.change_way(tem);
-				//new SimuNaviInit().dispose();
 			}
 		});
 		this.add(stop);
@@ -84,9 +83,8 @@ public class SimuNaviPanel extends JPanel {
 		this.add(inquire);
 		this.add(change);
 
-		g = g1;
-		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
-		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
+		startx = readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getPosX();
+		starty = readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getPosY();
 		// 创建人物对象及其位置
 		myMan = new Man(startx,starty, g1, navi);
 		arriveFlag = myMan.getArriveFlag();
@@ -120,18 +118,18 @@ public class SimuNaviPanel extends JPanel {
 			g.drawImage(bjImgXi, 40, 20, 762, 876, this);
 			g.drawImage(button, 50, 0, 740, 40, this);
 		}
-		else {
-			g.drawImage(bjImgXi, 40, 20, 762, 876, this);
-			g.drawImage(bjImgSha, 40, 20, 762, 876, this);
+		else if(location == 2){
+			g.drawImage(bjImgSha, 20, 30, 1053, 666, this);
+			g.drawImage(button, 100, 0, 740, 30, this);
 		}
-		// 画出背景图
+		else {
 
-		// 画人像
+		}
+
 		myMan.paint(g);
 		arriveFlag = myMan.getArriveFlag();
 	}
 
-		// 开发一个线程类,用来不断增加Y坐标的值，是一个内部类
 		class SimuNaviThread extends Thread{
 			public void run() {
 				while(true){
@@ -161,7 +159,6 @@ public class SimuNaviPanel extends JPanel {
 						else
 							sleep(20);
 					} catch (InterruptedException e) {
-						// 捕获异常并打印栈堆信息
 						e.printStackTrace();
 					}
 					

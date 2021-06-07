@@ -4,6 +4,7 @@ import DS.common.Edge;
 import DS.common.Graph;
 import DS.common.Node;
 import DS.function.Navigator;
+import Page.Page4;
 import readinFiles.readGraph;
 
 import javax.swing.*;
@@ -23,6 +24,16 @@ public class SimuNaviInit extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	public void simuInit(ArrayList<Integer> go_by) {
+		if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 1 && readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getEnd())).getCampus() == 1) {
+			location = 1;
+		}
+		else if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 2 && readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getEnd())).getCampus() == 2) {
+			location = 2;
+		}
+		else {
+			location = 3;
+		}
+
 		if(location == 1) {
 			Campus campus = new Campus(1);
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
@@ -32,7 +43,8 @@ public class SimuNaviInit extends JFrame {
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
 		else {
-			//TODO
+			Campus campus = new Campus(1);
+			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
 
 		Navigator nav = new Navigator(readGraph.g);
