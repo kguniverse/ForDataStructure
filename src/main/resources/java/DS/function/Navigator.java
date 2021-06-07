@@ -62,7 +62,6 @@ public class Navigator {
         else if(x == 4) strategy = new Strategy4();
     }
     public void setWaytoPoint(ArrayList<Integer> wayToPoint){
-
         this.wayToPoint = wayToPoint;
     }
 
@@ -131,11 +130,13 @@ public class Navigator {
         else{
             TSP TSP_method = new TSP(this);
             TSP_solution solution = TSP_method.SA_TSP();
+            int min_length = 0;
             for(int i = 0; i <= wayToPoint.size(); i++){
-                int min_length = Dijkstra(wayToPoint.get(solution.getInitNum(solution.path[i])), solution.getInitNum(solution.path[i + 1]));
+                min_length += Dijkstra(TSP_method.getInitNum(solution.path[i]), TSP_method.getInitNum(solution.path[i + 1]));
                 route.addAll(buffer);
                 buffer.clear();
             }
+            logger.debug("途径点问题算法得到的距离答案：" + min_length) ;
         }
     }
     public void showRoute(){
@@ -168,6 +169,7 @@ public class Navigator {
     }
 
     public Vector<Edge> getRouteEdge() { return route; }
+
     public int getNum() {
         return route.size();
     }
