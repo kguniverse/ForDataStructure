@@ -16,7 +16,7 @@ public class Navigator {
     private int endNum;
     private Vector<Edge> route;
     private Strategy strategy;
-    private ArrayList<Integer> WayToPoint;
+    private ArrayList<Integer> wayToPoint;
     private Vector<Edge> buffer;
     private int cannotApproach;
     private boolean setBeginNum;
@@ -26,7 +26,9 @@ public class Navigator {
         g = g1;
         route = new Vector<>();
         buffer = new Vector<>();
+        wayToPoint = new ArrayList<>();
         setBeginNum = false;
+        setStrategy(1);
     }
     //不含必经点
     public void setBeginNumByPage(){
@@ -47,7 +49,7 @@ public class Navigator {
         return endNum;
     }
     public ArrayList<Integer> getWayToPoint() {
-        return WayToPoint;
+        return wayToPoint;
     }
 
 
@@ -59,8 +61,8 @@ public class Navigator {
         else if(x == 3) strategy = new Strategy3();
         else if(x == 4) strategy = new Strategy4();
     }
-    public void setWaytoPoint(ArrayList<Integer> WayToPoint){
-        this.WayToPoint = WayToPoint;
+    public void setWaytoPoint(ArrayList<Integer> wayToPoint){
+        this.wayToPoint = wayToPoint;
     }
 
     public boolean judgeBetweenCampus(){
@@ -117,10 +119,10 @@ public class Navigator {
         }
     }
     public void addMustBy(int x) {
-        WayToPoint.add(x);
+        wayToPoint.add(x);
     }
     public void confirmedStart(){
-        if(WayToPoint.isEmpty()){
+        if(wayToPoint.isEmpty()){
             int min_length = Dijkstra(beginNum, endNum);
             route.addAll(buffer);
             buffer.clear();
@@ -128,8 +130,8 @@ public class Navigator {
         else{
             TSP TSP_method = new TSP(this);
             TSP_solution solution = TSP_method.SA_TSP();
-            for(int i = 0; i <= WayToPoint.size(); i++){
-                int min_length = Dijkstra(WayToPoint.get(solution.getInitNum(solution.path[i])), solution.getInitNum(solution.path[i + 1]));
+            for(int i = 0; i <= wayToPoint.size(); i++){
+                int min_length = Dijkstra(wayToPoint.get(solution.getInitNum(solution.path[i])), solution.getInitNum(solution.path[i + 1]));
                 route.addAll(buffer);
                 buffer.clear();
             }

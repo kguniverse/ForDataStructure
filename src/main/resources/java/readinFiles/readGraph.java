@@ -1,5 +1,6 @@
 package readinFiles;
 import DS.common.*;
+import DS.exception.RepeatidException;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -40,6 +41,10 @@ public class readGraph {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        g = new Graph(readGraph.edges, readGraph.nodes);
+        try{
+            g = new Graph(readGraph.edges, readGraph.nodes);
+        }catch (RepeatidException e){
+            e.printStackTrace();
+        }
     }
 }
