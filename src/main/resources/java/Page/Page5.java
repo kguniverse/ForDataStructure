@@ -56,7 +56,7 @@ public class Page5 {
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(Graph.getNameToNodeIndex(queryText.getText()) != -1) {
+                if(readGraph.g.getNameToNodeIndex(queryText.getText()) != -1) {
                     consequence_query(FindLocation.findlocation(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(queryText.getText())).getPosX(), readGraph.g.getNode(readGraph.g.getNameToNodeIndex(queryText.getText())).getPosY()));
                     frame.dispose();
                 }

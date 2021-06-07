@@ -22,7 +22,7 @@ public class SimuNaviInit extends JFrame {
 	 * @author DELL
 	 */
 	private static final long serialVersionUID = 1L;
-	public void simuInit() {
+	public void simuInit(ArrayList<Integer> go_by) {
 		if(location == 1) {
 			Campus campus = new Campus(1);
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
@@ -36,7 +36,8 @@ public class SimuNaviInit extends JFrame {
 		}
 
 		Navigator nav = new Navigator(readGraph.g);
-
+		if(go_by != null)
+			nav.setWaytoPoint(go_by);
 		//TODO:导航模块初始化
 		nav.setBeginNumByPage();
 		nav.setStrategy(1);
@@ -50,9 +51,6 @@ public class SimuNaviInit extends JFrame {
 		this.setContentPane(new SimuNaviPanel(readGraph.g, nav, location));
 		this.setVisible(true);
 	}
-//	public SimuNaviInit() {
-//
-//	}
 
 	public void colse() {
 		this.dispose();
