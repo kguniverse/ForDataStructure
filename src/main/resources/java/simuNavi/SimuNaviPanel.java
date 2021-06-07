@@ -48,11 +48,18 @@ public class SimuNaviPanel extends JPanel {
 
 		Navigator nav = new Navigator(readGraph.g);
 		navi = nav;
-		if(go_by != null)
+		if(go_by != null) {
 			nav.setWaytoPoint(go_by);
-		nav.setBeginNumByPage();
-		nav.setStrategy(1);
-		nav.go();
+			nav.setBeginNumByPage();
+			nav.setStrategy(1);
+			nav.confirmedStart();
+		}
+		else {
+			nav.setBeginNumByPage();
+			nav.setStrategy(1);
+			nav.go();
+		}
+
 
 		JButton stop = new JButton("停止");
 		JButton begin = new JButton("开始");

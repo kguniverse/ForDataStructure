@@ -13,13 +13,18 @@ public class test {
 
     public static void main(String[] args) {
         Mylog.lIprintf("this is a test");
-        int begin = 9047;
-        int end = 9005;
+        int begin = 2001;
+        int end = 97;
+//        ArrayList<Integer> arr = new ArrayList<>();
+//        for(int i = 0; i < 10; i++){
+//            if(i == 2) continue;
+//            arr.add(9002 + i);
+//        }
         readGraph readgra = new readGraph();
         Navigator nav = new Navigator(readGraph.g);
         nav.setBeginNum(begin);
         nav.setEndNum(end);
-
+//        nav.setWaytoPoint(arr);
         nav.go();
     }
 }
