@@ -129,18 +129,20 @@ public class Navigator {
         }
         else{
             TSP TSP_method = new TSP(this);
-            TSP_solution solution = TSP_method.SA_TSP();
+//            TSP_solution solution = TSP_method.SA_TSP();
+            TSP_solution solution = TSP_method.BSM_dfs_TSP();
             int min_length = 0;
             for(int i = 0; i <= wayToPoint.size(); i++){
                 min_length += Dijkstra(TSP_method.getInitNum(solution.path[i]), TSP_method.getInitNum(solution.path[i + 1]));
                 route.addAll(buffer);
                 buffer.clear();
             }
+            showRoute();
             logger.debug("途径点问题算法得到的距离答案：" + min_length) ;
         }
     }
     public void showRoute(){
-        int num = buffer.size();
+        int num = route.size();
         if(cannotApproach == 1){
             System.out.println("Sorry, you can not approach from "
                     + g.getNodeIndexToName(beginNum)
@@ -151,7 +153,7 @@ public class Navigator {
         }
         System.out.println("Great, You find the way!\n");
         StringBuilder info = new StringBuilder(g.getNodeIndexToName(beginNum));
-        for (Edge edge : buffer) {
+        for (Edge edge : route) {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
         System.out.println(info);
@@ -159,8 +161,8 @@ public class Navigator {
     public void go(){
         int dis = Dijkstra(beginNum, endNum);
         logger.debug("shortest distance:" + dis);
-        showRoute();
         route.addAll(buffer);
+        showRoute();
         // TESTED
     }
 

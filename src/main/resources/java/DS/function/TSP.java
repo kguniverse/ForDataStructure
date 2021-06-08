@@ -10,11 +10,15 @@ public class TSP {
     private HashMap<Integer, Integer> reflectToNum;
     private TSP_solution bestSolution;
     private int start, end;
+    private static int vis[];
+//    private int bound;
 
     public TSP(Navigator Navi){
         this.wayToPoint = new ArrayList<>();
         this.wayToPoint.addAll(Navi.getWayToPoint());
         G = new Matrix(Navi, wayToPoint.size());
+        this.start = 0;
+        this.end = G.vex_num - 1;
     }
 
     private int CalculateLength(TSP_solution newSolution){
@@ -39,7 +43,8 @@ public class TSP {
     }
     TSP_solution FindNewSolution(TSP_solution bestSolution){
         // 产生新的解
-        TSP_solution newSolution = bestSolution;
+        TSP_solution newSolution = new TSP_solution(G.vex_num);
+        newSolution.copy(bestSolution);
 
         // 起始城市固定为A, 终点也要返回A, 即需要关注起点A和终点A之间的所有城市
 //        int i = rand() % (G.vex_num - 1) + 1;	// % 取余 -> 即将随机数控制在[1, G.vex_num - 1]
@@ -120,23 +125,20 @@ public class TSP {
         ArrayUtils.shuffle(Best_solution.path, 1, G.vex_num - 2);
 
         // 当前解, 与最优解比较
-        TSP_solution Current_solution;
+        TSP_solution Current_solution = new TSP_solution(G.vex_num);
 
         // 模拟退火过程
         while(Constants.MIN_TEMPERATURE < Current_Temperature){
             // 满足迭代次数
             for (int i = 0; i < Constants.LEGNTH_Mapkob; i++)
             {
-                Current_solution = FindNewSolution(Best_solution);
-                if (Current_solution.length_path <= Best_solution.length_path)	// 接受新解
+                if ((int)Math.exp((Best_solution.length_path - Current_solution.length_path) / Current_Temperature) > Math.random())
+                {// 按 Metropolis 判断是否接受
+                    Current_solution = FindNewSolution(Best_solution);
+                }
+                if (Current_solution.length_path < Best_solution.length_path)	// 接受新解
                 {
                     Best_solution = Current_solution;
-                }
-                else{	// 按 Metropolis 判断是否接受
-                    if ((int)Math.exp((Best_solution.length_path - Current_solution.length_path) / Current_Temperature) > Math.random())
-                    {
-                        Best_solution = Current_solution;
-                    }
                 }
             }
             Current_Temperature *= Constants.SPEED;  // 按 SPEED 速率退火
@@ -144,6 +146,44 @@ public class TSP {
         }
 
         return Best_solution;
+    }
+    void BSM_dfs(int u, int k, TSP_solution currentSolution, double learningRate){
+        if(k == G.vex_num - 1){
+            int _length = currentSolution.length_path;
+            if(_length + G.arcs[u][end] < learningRate * bestSolution.length_path) {
+                bestSolution.copy(currentSolution);
+                bestSolution.length_path = _length + G.arcs[u][end];
+            }
+            return;
+        }
+        int _length = currentSolution.length_path;
+        double bound = bestSolution.length_path * learningRate;
+        for(int i = 1; i < G.vex_num - 1; i++){
+            if(vis[i] != 0 || G.arcs[u][i] + _length > bound) continue;
+            vis[i] = 1;
+            currentSolution.length_path += G.arcs[u][i];
+            currentSolution.path[k] = i;
+            BSM_dfs(i, k + 1, currentSolution, learningRate);
+            currentSolution.length_path -= G.arcs[u][i];
+            currentSolution.path[k] = 0;
+            vis[i] = 0;
+        }
+    }
+    TSP_solution BSM_dfs_TSP(){
+        vis = new int[G.vex_num];
+        bestSolution = new TSP_solution(G.vex_num);
+        bestSolution.length_path = Constants.inf;
+//        for (int i = 0; i < G.vex_num; i++)
+//        {
+//            bestSolution.path[i] = i;
+//        }
+        TSP_solution currentSolution = new TSP_solution(G.vex_num);
+        currentSolution.path[0] = start;
+        currentSolution.length_path = 0;
+        currentSolution.path[G.vex_num - 1] = end;
+        double learningTate = 0.8;
+        BSM_dfs(0, 1, currentSolution, learningTate);
+        return bestSolution;
     }
     int getInitNum(int index){
         return G.getInitNum(index);
@@ -188,22 +228,27 @@ class Matrix{
     int getInitNum(int index){
         return reflectToNum.get(index);
     }
+
+
 }
 
-class TSP_solution{
+class TSP_solution {
     //TODO：初始化, 映射
     public int length_path;
     public Integer[] path;
-    private HashMap<Integer, Integer> inv;
 
     public TSP_solution(int x) {
         path = new Integer[x + 5];
-        inv = new HashMap<>();
+        length_path = Constants.inf;
     }
 
 //    public int getInitNum(int x){
 //        return inv.get(x);
 //    }
+    public void copy(TSP_solution x){
+        this.length_path = x.length_path;
+        this.path = x.path.clone();
+    }
 }
 
 class ArrayUtils {
