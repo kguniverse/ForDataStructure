@@ -7,6 +7,7 @@ import java.util.*;
 public class TSP {
     private Matrix G;
     private ArrayList<Integer> wayToPoint;
+    private HashMap<Integer, Integer> reflectToNum;
     private TSP_solution bestSolution;
     private int start, end;
 

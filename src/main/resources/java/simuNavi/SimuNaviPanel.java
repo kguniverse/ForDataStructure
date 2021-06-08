@@ -3,11 +3,13 @@ package simuNavi;
 import DS.common.Graph;
 import DS.function.FindLocation;
 import DS.function.Navigator;
+import readinFiles.readGraph;
 import Page.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *游戏内容面板
@@ -17,23 +19,48 @@ import java.awt.event.ActionListener;
 public class SimuNaviPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// 构造方法,用于调用线程
-	private Graph g;
 	private int startx;
 	private int starty;
+	private int initLocal = 0;
+	Navigator navi;
 	static Man myMan;
-	private int location;
+	private int locat;
 	boolean arriveFlag = false;
 	boolean ifStop = true;
 	boolean findLocal = false;
+	private int timesFlag = 0;
+	int changeBack = 0;
+	public SimuNaviPanel(ArrayList<Integer> go_by, int location) {
+		locat = location;
+		if(locat == 3) {
+			if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 1) {	//起点在西土城
+				Page4.setEnd("0003");
+				initLocal = 1;
+				locat = 1;
+			}
+			else {
+				initLocal = 2;
+				Page4.setEnd("1西门");
+				locat = 2;
+			}
+			timesFlag = 3;
+		}
 
-	public SimuNaviPanel(Graph g1, Navigator navi, int location) {
-		if(location == 1) {
-			Campus campus = new Campus(1);
+		Navigator nav = new Navigator(readGraph.g);
+		navi = nav;
+		if(go_by != null) {
+			nav.setWaytoPoint(go_by);
+			nav.setBeginNumByPage();
+			nav.setStrategy(1);
+			nav.confirmedStart();
 		}
 		else {
-			Campus campus = new Campus();
+			nav.setBeginNumByPage();
+			nav.setStrategy(1);
+			nav.go();
 		}
-		this.location = location;
+
+
 		JButton stop = new JButton("停止");
 		JButton begin = new JButton("开始");
 		JButton inquire = new JButton("查询");
@@ -65,6 +92,8 @@ public class SimuNaviPanel extends JPanel {
 		inquire.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Page5 page5 = new Page5();
+				page5.consequence_query(FindLocation.findlocation(myMan.getX(), myMan.getY()));
 				findLocal = true;
 			}
 		});
@@ -76,7 +105,6 @@ public class SimuNaviPanel extends JPanel {
 				String tem = FindLocation.findlocation(myMan.getX(), myMan.getY()).get(0).getName();
 				myMan.setI(0);
 				change.change_way(tem);
-				//new SimuNaviInit().dispose();
 			}
 		});
 		this.add(stop);
@@ -84,21 +112,20 @@ public class SimuNaviPanel extends JPanel {
 		this.add(inquire);
 		this.add(change);
 
-		g = g1;
-		startx = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosX();
-		starty = g.getNode(g.getNameToNodeIndex(Page4.getStart())).getPosY();
+		startx = readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getPosX();
+		starty = readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getPosY();
 		// 创建人物对象及其位置
-		myMan = new Man(startx,starty, g1, navi);
+		myMan = new Man(startx,starty, navi, timesFlag);
 		arriveFlag = myMan.getArriveFlag();
 		SimuNaviThread my = new SimuNaviThread();
 		my.start();
 	}
 
-	
 	// 定义和加载地图背景图片
 	static Image bjImgXi;
 	static Image bjImgSha;
 	static Image button;
+	static Image backGround;
 	
 	// 通过系统的工具包类,来完成图片的加载和创建
 	static Toolkit tk = Toolkit.getDefaultToolkit();
@@ -112,62 +139,114 @@ public class SimuNaviPanel extends JPanel {
 		bjImgXi = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("Image/map.png"));
 		bjImgSha = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("Image/map2.png"));
 		button = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("Image/simuButton.png"));
+		backGround = tk.createImage(SimuNaviPanel.class.getClassLoader().getResource("Image/sign.png"));
 	}
 	
 	@Override
 	public void paint(Graphics g) {
-		if(location == 1) {
+		if(locat == 1) {
 			g.drawImage(bjImgXi, 40, 20, 762, 876, this);
 			g.drawImage(button, 50, 0, 740, 40, this);
 		}
-		else {
-			g.drawImage(bjImgXi, 40, 20, 762, 876, this);
-			g.drawImage(bjImgSha, 40, 20, 762, 876, this);
+		else if(locat == 2){
+			g.drawImage(bjImgSha, 20, 30, 1053, 666, this);
+			g.drawImage(button, 100, 0, 740, 30, this);
 		}
-		// 画出背景图
+		else {
+			g.drawImage(backGround, 0, 0, 1000, 1093, this);
+			g.drawImage(bjImgSha, 10, 10, 105, 66, this);
+			g.drawImage(bjImgXi, 764, 780, 76, 87, this);
 
-		// 画人像
+//			}
+
+		}
 		myMan.paint(g);
 		arriveFlag = myMan.getArriveFlag();
 	}
 
-		// 开发一个线程类,用来不断增加Y坐标的值，是一个内部类
-		class SimuNaviThread extends Thread{
-			public void run() {
-				while(true){
-					// 如果导航结束标志为真,停止线程
-					if(myMan.getArriveFlag()) {
-						return;
-					}
-					
-					// 重新调用paint方法
-					if(!ifStop && !findLocal)
-						SimuNaviPanel.this.repaint();
-					else if(findLocal){
-						if(!ifStop) {
-							Page5 findlocal = new Page5();
-							findlocal.consequence_query(FindLocation.findlocation(myMan.getX(), myMan.getY()));
+	class SimuNaviThread extends Thread{
+		int flag1 = 0;
+		int flag2 = 0;
+		public void run() {
+			while(true){
+				// 如果导航结束标志为真,停止线程
+				if(myMan.getArriveFlag()) {
+					return;
+				}
+				//todo
+				if(!ifStop && !findLocal) {
+					if(myMan.getTimesFlag() == 2 && flag1 == 0) {
+						if(initLocal == 1) {
+							myMan.setX(764);
+							myMan.setY(780);
 						}
-
-						ifStop = true;
+						else if(initLocal == 2){
+							myMan.setX(115);
+							myMan.setY(76);
+						}
+						flag1 = 1;
+						locat = 3;
 					}
+					else if(myMan.getTimesFlag() == 1) {
+						if(initLocal == 1) {
+							locat = 2;
+						}
+						else if(initLocal == 2) {
+							locat = 1;
+						}
+						if(flag2 == 0) {
+							if(initLocal == 1) {
+								myMan.setX(readGraph.g.getNode(readGraph.g.getNameToNodeIndex("1西门")).getPosX());
+								myMan.setY(readGraph.g.getNode(readGraph.g.getNameToNodeIndex("1西门")).getPosY());
+								Page4.setStart("1西门");
+								Page4.setEnd(Page4.getInitEnd());
+							}
+							else {
+								myMan.setX(readGraph.g.getNode(readGraph.g.getNameToNodeIndex("0003")).getPosX());
+								myMan.setY(readGraph.g.getNode(readGraph.g.getNameToNodeIndex("0003")).getPosY());
+								Page4.setStart("0003");
+								Page4.setEnd(Page4.getInitEnd());
+							}
+							navi.clearRoute();
+							navi.setBeginNumByPage();
+							navi.setStrategy(1);
+							navi.go();
+							myMan.setNav(navi);
+							myMan.setNumOfNodes(navi.getNum());
+							myMan.setI(0);
+							flag2 = 1;
+						}
+					}
+					SimuNaviPanel.this.repaint();
+				}
+				else if(findLocal){
+					if(!ifStop) {
+						Page5 findlocal = new Page5();
+						findlocal.consequence_query(FindLocation.findlocation(myMan.getX(), myMan.getY()));
+					}
+					ifStop = true;
+				}
 
-					try {
-						// 休眠10毫秒 然后继续画出所有元素
+				try {
+					if(myMan.getTimesFlag() != 2) {
 						if(Man.type == 1)
 							sleep(5);
 						else if(Man.type == 2)
 							sleep(10);
 						else
 							sleep(20);
-					} catch (InterruptedException e) {
-						// 捕获异常并打印栈堆信息
-						e.printStackTrace();
 					}
-					
+					else {
+						sleep(5);
+					}
+
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
+
 			}
 		}
+	}
 		
 	
 }

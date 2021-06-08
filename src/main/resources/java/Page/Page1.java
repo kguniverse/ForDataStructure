@@ -53,7 +53,6 @@ public class Page1 {
                     userText.setText("");
                     passwordText.setText("");
                 }
-
             }
         });
         loginButton.setBounds(260, 150, 80, 25);

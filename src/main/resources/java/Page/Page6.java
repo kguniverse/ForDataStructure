@@ -179,7 +179,21 @@ public class Page6 {
         jScrollPane1.setViewportView(myJlist);
         jp.add(panel);
         jp.add(jScrollPane1);
-
+        for(int i = 0; i < read_user.u.getSchedule().size(); i++) {
+            items[num] += num;
+            items[num] += ". ";
+            items[num] += "  时间：";
+            items[num] +=  read_user.u.getSchedule().get(i).getTime();
+            items[num] += "  事件：";
+            items[num] += read_user.u.getSchedule().get(i).getEvent();
+            items[num] += "  地点：";
+            items[num] += read_user.u.getSchedule().get(i).getSite();
+            items[num] += "                                                               ";
+            jList1Model.addElement(items[num]);
+            preLocation.setText("");
+            timeText.setText("");
+            num++;
+        }
 
         frame.add(panel, BorderLayout.CENTER);
         frame.add(jScrollPane1, BorderLayout.EAST);

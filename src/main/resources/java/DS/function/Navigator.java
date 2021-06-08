@@ -11,7 +11,7 @@ import readinFiles.readGraph;
 
 public class Navigator {
     final Logger logger = LoggerFactory.getLogger(Navigator.class);
-    private final Graph g;
+    private Graph g;
     private int beginNum;
     private int endNum;
     private Vector<Edge> route;
@@ -176,5 +176,8 @@ public class Navigator {
     public Node getNode(int index){
         return g.getNode(index);
     }
-    public void clearRoute() {route.clear();}
+    public void clearRoute() {
+        buffer.clear();
+        route.clear();
+    }
 }
