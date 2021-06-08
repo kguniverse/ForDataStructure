@@ -92,6 +92,8 @@ public class SimuNaviPanel extends JPanel {
 		inquire.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Page5 page5 = new Page5();
+				page5.consequence_query(FindLocation.findlocation(myMan.getX(), myMan.getY()));
 				findLocal = true;
 			}
 		});
