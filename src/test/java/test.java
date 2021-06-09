@@ -27,13 +27,13 @@ public class test {
             arr.add(9002 + i);
         }
         readGraph readgra = new readGraph();
-//        judge(readGraph.nodes);
-        Navigator nav = new Navigator(readGraph.g);
+        judge(readGraph.nodes);
+//        Navigator nav = new Navigator(readGraph.g);
 
-        nav.setBeginNum(begin);
-        nav.setEndNum(end);
-        nav.setWaytoPoint(arr);
-//        nav.go();
-        nav.confirmedStart();
+//        nav.setBeginNum(begin);
+//        nav.setEndNum(end);
+//        nav.setWaytoPoint(arr);
+////        nav.go();
+//        nav.confirmedStart();
     }
 }
