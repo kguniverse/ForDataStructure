@@ -36,14 +36,6 @@ public class Navigator {
         setBeginNum = true;
         logger.debug("already set beginNum to {}, endNum to {}", beginNum, endNum);
     }
-    //包含必经点
-    //TODO:type???
-    public void setBeginNumByPage(int type){
-        this.beginNum = g.getNameToNodeIndex(Page4.getStart());
-        this.endNum = g.getNameToNodeIndex(Page4.getEnd());
-        setBeginNum = true;
-        logger.debug("already set beginNum to {}, endNum to {}", beginNum, endNum);
-    }
     public int getBeginNum() {
         return beginNum;
     }
