@@ -8,14 +8,6 @@ public class MainService {
         helloPage.page();
         Page3 graph = new Page3();
         graph.page();
-        //TODO：读入完成(over)
-        //TODO：日志模块 (over)
-        //TODO：界面（命令行，能用就行）(over)
-        //TODO：建图（通过两个数组  遇到问题
-        //TODO：建导航（接口为图）遇到问题
-        //TODO：读入起始点，终点
-        //TODO：询问是否添加途径点
-        //TODO：输出
 
     }
 }

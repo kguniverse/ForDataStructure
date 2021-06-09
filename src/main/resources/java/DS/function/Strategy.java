@@ -9,6 +9,6 @@ public abstract class Strategy {
 
     public Comparator<Edge> getCmp(){ return cmp; }
 
-    public abstract int cmpValue(Edge x);
+    public abstract double cmpValue(Edge x);
 }
 

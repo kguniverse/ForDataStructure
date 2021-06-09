@@ -149,14 +149,14 @@ public class TSP {
     }
     void BSM_dfs(int u, int k, TSP_solution currentSolution, double learningRate){
         if(k == G.vex_num - 1){
-            int _length = currentSolution.length_path;
+            double _length = currentSolution.length_path;
             if(_length + G.arcs[u][end] < learningRate * bestSolution.length_path) {
                 bestSolution.copy(currentSolution);
                 bestSolution.length_path = _length + G.arcs[u][end];
             }
             return;
         }
-        int _length = currentSolution.length_path;
+        double _length = currentSolution.length_path;
         double bound = bestSolution.length_path * learningRate;
         for(int i = 1; i < G.vex_num - 1; i++){
             if(vis[i] != 0 || G.arcs[u][i] + _length > bound) continue;
@@ -192,7 +192,7 @@ public class TSP {
 }
 
 class Matrix{
-    public int[][] arcs;
+    public double[][] arcs;
     public int vex_num, arc_num;
     private HashMap<Integer, Integer> reflectToNum;
     private HashMap<Integer, Integer> inv;
@@ -209,10 +209,10 @@ class Matrix{
             reflectToNum.put(i, wayToBy.get(i));
             inv.put(wayToBy.get(i), i);
         }
-        arcs = new int[wayToBy.size() + 5][];
+        arcs = new double[wayToBy.size() + 5][];
         //init
         for(int i = 0; i < vex_num + 5; i++) {
-            arcs[i] = new int[wayToBy.size() + 5];
+            arcs[i] = new double[wayToBy.size() + 5];
         }
         for(int i = 0; i < vex_num; i++){
             for(int j = 0; j < vex_num; j++){
@@ -234,7 +234,7 @@ class Matrix{
 
 class TSP_solution {
     //TODO：初始化, 映射
-    public int length_path;
+    public double length_path;
     public Integer[] path;
 
     public TSP_solution(int x) {

@@ -1,4 +1,4 @@
-package DS.function.stratrgyPack;
+package DS.function.strategyPack;
 
 import DS.common.Edge;
 import DS.function.*;
@@ -7,7 +7,7 @@ public class Strategy3 extends Strategy{
 
 
     @Override
-    public int cmpValue(Edge x) {
+    public double cmpValue(Edge x) {
         return 0;
     }
 }

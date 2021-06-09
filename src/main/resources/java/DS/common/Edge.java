@@ -8,7 +8,7 @@ public class Edge{
     private int from;
     private int to;
     private int campus;
-    private int cmp;
+    private double cmp;
 
     public Edge() {}
     public Edge(int type, int from, int to, int length, int campus, int stream) {
@@ -21,7 +21,7 @@ public class Edge{
         this.campus = campus;
         this.stream = stream;
     }
-    public Edge(int to, int val){
+    public Edge(int to, double val){
         this.to = to;
         this.cmp = val;
     }
@@ -35,12 +35,16 @@ public class Edge{
         this.stream = Integer.parseInt(detailedInfoEdge[6]);
     }
 
-    public int getLength() { return length; }
+    public int getLength() {
+        return length;
+    }
     public int getStream() {
         return stream;
     }
     public int getFrom() {return from;}
-    public int getTo() {return to;}
+    public int getTo() {
+        return to;
+    }
     public int getId() {return id;}
     public int getType() { return type; }
 
@@ -51,7 +55,7 @@ public class Edge{
 
     public Edge getReverseEdge(){ return new Edge(type, to, from, length, campus, stream); }
 
-    public int getCmp() {
+    public double getCmp() {
         return cmp;
     }
 }

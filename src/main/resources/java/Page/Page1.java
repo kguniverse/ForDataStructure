@@ -35,24 +35,27 @@ public class Page1 {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(read_user.user_map.containsKey(userText.getText())) {
-                    if(read_user.user_map.get(userText.getText()).getPass().equals(passwordText.getText())) {
-                        frame.dispose();
-                        Page2 user = new Page2();
-                        user.page();
-                        read_user.u = read_user.user_map.get(userText.getText());
-                    }
-                    else {
-                        Clash.IDPass_clash();
-                        userText.setText("");
-                        passwordText.setText("");
-                    }
-                }
-                else {
-                    Clash.IDPass_clash();
-                    userText.setText("");
-                    passwordText.setText("");
-                }
+                frame.dispose();
+                Page2 user = new Page2();
+                user.page();
+//                if(read_user.user_map.containsKey(userText.getText())) {
+//                    if(read_user.user_map.get(userText.getText()).getPass().equals(passwordText.getText())) {
+//                        frame.dispose();
+//                        Page2 user = new Page2();
+//                        user.page();
+//                        read_user.u = read_user.user_map.get(userText.getText());
+//                    }
+//                    else {
+//                        Clash.IDPass_clash();
+//                        userText.setText("");
+//                        passwordText.setText("");
+//                    }
+//                }
+//                else {
+//                    Clash.IDPass_clash();
+//                    userText.setText("");
+//                    passwordText.setText("");
+//                }
             }
         });
         loginButton.setBounds(260, 150, 80, 25);

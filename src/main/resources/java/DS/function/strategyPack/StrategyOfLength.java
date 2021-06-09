@@ -1,4 +1,4 @@
-package DS.function.stratrgyPack;
+package DS.function.strategyPack;
 
 import DS.common.Edge;
 import DS.function.*;
@@ -11,12 +11,12 @@ public class StrategyOfLength extends Strategy{
         cmp = new Comparator<Edge>() {
             @Override
             public int compare(Edge o1, Edge o2) {
-                return o1.getCmp() - o2.getCmp();
+                return Double.compare(o1.getCmp(), o2.getCmp());
             }
         };
     }
     @Override
-    public int cmpValue(Edge x) {
+    public double cmpValue(Edge x) {
         return x.getLength();
     }
 }

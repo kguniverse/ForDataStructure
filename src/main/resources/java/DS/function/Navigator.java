@@ -1,7 +1,7 @@
 package DS.function;
 
 import DS.common.*;
-import DS.function.stratrgyPack.*;
+import DS.function.strategyPack.*;
 import java.util.*;
 import MyLog.Mylog;
 import Page.*;
@@ -57,7 +57,7 @@ public class Navigator {
     public void setEndNum(int x){endNum = x;}
     public void setStrategy(int x){
         if(x == 1) strategy = new StrategyOfLength();
-        else if(x == 2) strategy = new Strategy2();
+        else if(x == 2) strategy = new StrategyOfTime();
         else if(x == 3) strategy = new Strategy3();
         else if(x == 4) strategy = new Strategy4();
     }
@@ -69,9 +69,9 @@ public class Navigator {
         return g.getNode(beginNum) != g.getNode(endNum);
     }
 
-    public int Dijkstra(int start, int end){
+    public double Dijkstra(int start, int end){
         PriorityQueue<Edge> pq = new PriorityQueue<>(strategy.getCmp());
-        int[] dis = new int[Constants.MAXIMUM_Node];
+        double[] dis = new double[Constants.MAXIMUM_Node];
         Edge[] fa = new Edge[Constants.MAXIMUM_Node];
         Edge[] buf = new Edge[Constants.MAXIMUM_Edge];
         cannotApproach = 0;
@@ -89,8 +89,8 @@ public class Navigator {
                 Edge v = head.getNextVertex().getEdge();
                 int t = v.getTo();
                 //TODO:没有增加策略不同的弹性
-                if(dis[t] > dis[u.getTo()] + v.getLength()){
-                    dis[t] = dis[u.getTo()] + v.getLength();
+                if(dis[t] > dis[u.getTo()] + strategy.cmpValue(v)/*v.getLength()*/){
+                    dis[t] = dis[u.getTo()] + strategy.cmpValue(v);
                     pq.add(new Edge(t, dis[t]));
                     fa[t] = v;
                 }
@@ -123,7 +123,7 @@ public class Navigator {
     }
     public void confirmedStart(){
         if(wayToPoint.isEmpty()){
-            int min_length = Dijkstra(beginNum, endNum);
+            double min_length = Dijkstra(beginNum, endNum);
             route.addAll(buffer);
             buffer.clear();
         }
@@ -131,7 +131,7 @@ public class Navigator {
             TSP TSP_method = new TSP(this);
 //            TSP_solution solution = TSP_method.SA_TSP();
             TSP_solution solution = TSP_method.BSM_dfs_TSP();
-            int min_length = 0;
+            double min_length = 0;
             for(int i = 0; i <= wayToPoint.size(); i++){
                 min_length += Dijkstra(TSP_method.getInitNum(solution.path[i]), TSP_method.getInitNum(solution.path[i + 1]));
                 route.addAll(buffer);
@@ -159,7 +159,7 @@ public class Navigator {
         System.out.println(info);
     }
     public void go(){
-        int dis = Dijkstra(beginNum, endNum);
+        double dis = Dijkstra(beginNum, endNum);
         logger.debug("shortest distance:" + dis);
         route.addAll(buffer);
         showRoute();
