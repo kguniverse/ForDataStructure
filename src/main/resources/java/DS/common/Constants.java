@@ -5,7 +5,7 @@ public class Constants {
     public final static int MAXIMUM_Node  = 10005;
     public static int NowEdgeNum = 0;
     public static int NowNodeNum = 0;
-    public static int inf = 0x3f3f3f3f;
+    public static double inf = 1e9 + 7;
     public static int INITIAL_TEMPERATURE = 100005;
     public static int MIN_TEMPERATURE = 100;
     public static int LEGNTH_Mapkob = 200;

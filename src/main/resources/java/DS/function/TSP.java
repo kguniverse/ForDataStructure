@@ -5,7 +5,7 @@ import DS.common.*;
 import java.util.*;
 
 public class TSP {
-    private Matrix G;
+    public Matrix G;
     private ArrayList<Integer> wayToPoint;
     private HashMap<Integer, Integer> reflectToNum;
     private TSP_solution bestSolution;
@@ -21,7 +21,7 @@ public class TSP {
         this.end = G.vex_num - 1;
     }
 
-    private int CalculateLength(TSP_solution newSolution){
+    private double CalculateLength(TSP_solution newSolution){
         int _length = 0;
 
         for (int i = 0; i < G.vex_num - 1; i++)

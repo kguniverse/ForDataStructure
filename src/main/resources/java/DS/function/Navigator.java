@@ -3,14 +3,13 @@ package DS.function;
 import DS.common.*;
 import DS.function.strategyPack.*;
 import java.util.*;
-import MyLog.Mylog;
 import Page.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import readinFiles.readGraph;
 
 public class Navigator {
-    final Logger logger = LoggerFactory.getLogger(Navigator.class);
+    final static Logger logger = LoggerFactory.getLogger(Navigator.class);
     private Graph g;
     private int beginNum;
     private int endNum;
@@ -35,12 +34,15 @@ public class Navigator {
         this.beginNum = g.getNameToNodeIndex(Page4.getStart());
         this.endNum = g.getNameToNodeIndex(Page4.getEnd());
         setBeginNum = true;
+        logger.debug("already set beginNum to {}, endNum to {}", beginNum, endNum);
     }
     //包含必经点
+    //TODO:type???
     public void setBeginNumByPage(int type){
         this.beginNum = g.getNameToNodeIndex(Page4.getStart());
         this.endNum = g.getNameToNodeIndex(Page4.getEnd());
         setBeginNum = true;
+        logger.debug("already set beginNum to {}, endNum to {}", beginNum, endNum);
     }
     public int getBeginNum() {
         return beginNum;
@@ -63,6 +65,7 @@ public class Navigator {
     }
     public void setWaytoPoint(ArrayList<Integer> wayToPoint){
         this.wayToPoint = wayToPoint;
+        logger.debug("the way to point is set to {}", wayToPoint);
     }
 
     public boolean judgeBetweenCampus(){
@@ -88,7 +91,6 @@ public class Navigator {
             while(head.hasNext()){
                 Edge v = head.getNextVertex().getEdge();
                 int t = v.getTo();
-                //TODO:没有增加策略不同的弹性
                 if(dis[t] > dis[u.getTo()] + strategy.cmpValue(v)/*v.getLength()*/){
                     dis[t] = dis[u.getTo()] + strategy.cmpValue(v);
                     pq.add(new Edge(t, dis[t]));
@@ -98,7 +100,7 @@ public class Navigator {
             }
         }
         if(dis[end] == Constants.inf) {
-            Mylog.lWprintf("endpoint cannot approach");
+            logger.warn("endpoint cannot approach");
             cannotApproach = 1;
             return -1;
         }else{
@@ -129,8 +131,15 @@ public class Navigator {
         }
         else{
             TSP TSP_method = new TSP(this);
-//            TSP_solution solution = TSP_method.SA_TSP();
-            TSP_solution solution = TSP_method.BSM_dfs_TSP();
+            TSP_solution solution;
+            if(TSP_method.G.vex_num <= 15){
+                solution = TSP_method.BSM_dfs_TSP();
+                logger.debug("run the BSM algorithm");
+            }
+            else{
+                solution = TSP_method.SA_TSP();
+                logger.debug("run the SA algorithm");
+            }
             double min_length = 0;
             for(int i = 0; i <= wayToPoint.size(); i++){
                 min_length += Dijkstra(TSP_method.getInitNum(solution.path[i]), TSP_method.getInitNum(solution.path[i + 1]));
@@ -144,19 +153,23 @@ public class Navigator {
     public void showRoute(){
         int num = route.size();
         if(cannotApproach == 1){
-            System.out.println("Sorry, you can not approach from "
+//            System.out.println("Sorry, you can not approach from "
+//                    + g.getNodeIndexToName(beginNum)
+//                    + " -> "
+//                    + g.getNodeIndexToName(endNum)
+//            );
+            logger.warn("Sorry, you can not approach from "
                     + g.getNodeIndexToName(beginNum)
                     + " -> "
-                    + g.getNodeIndexToName(endNum)
-            );
+                    + g.getNodeIndexToName(endNum));
             return;
         }
-        System.out.println("Great, You find the way!\n");
+        logger.info("Great, You find the way!\n");
         StringBuilder info = new StringBuilder(g.getNodeIndexToName(beginNum));
         for (Edge edge : route) {
             info.append(" -> ").append(g.getNodeIndexToName(edge.getTo()));
         }
-        System.out.println(info);
+        logger.info(info.toString());
     }
     public void go(){
         double dis = Dijkstra(beginNum, endNum);

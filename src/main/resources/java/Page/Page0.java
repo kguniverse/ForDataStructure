@@ -1,4 +1,7 @@
 package Page;
+import DS.function.Navigator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import readinFiles.*;
 import javax.swing.*;
 import java.awt.*;
