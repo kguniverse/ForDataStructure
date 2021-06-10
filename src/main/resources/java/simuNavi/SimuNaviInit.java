@@ -19,7 +19,7 @@ public class SimuNaviInit extends JFrame {
 	 * @author DELL
 	 */
 	private static final long serialVersionUID = 1L;
-	public void simuInit(ArrayList<Integer> go_by) {
+	public void simuInit(ArrayList<Integer> go_by, int strtege) {
 		//1为西土城小区，2为沙河校区，3为校区间
 		int location = 1;
 		if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 1 && readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getEnd())).getCampus() == 1) {
@@ -50,7 +50,7 @@ public class SimuNaviInit extends JFrame {
 		this.setTitle("智慧校园导览系统");
 		this.setResizable(true);
 		this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-		this.setContentPane(new SimuNaviPanel(go_by, location));
+		this.setContentPane(new SimuNaviPanel(go_by, location, strtege));
 		this.setVisible(true);
 	}
 

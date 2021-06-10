@@ -17,12 +17,12 @@ public class FindLocation {
             }
         }
 
-        Collections.sort(location, new Comparator<Node>() {
+        location.sort(new Comparator<Node>() {
             @Override
             public int compare(Node o1, Node o2) {
-                if(Math.abs(o1.getPosX()-x + o1.getPosY()-y) > Math.abs(o2.getPosX()-x + o2.getPosY()-y))
+                if (Math.abs(o1.getPosX() - x + o1.getPosY() - y) < Math.abs(o2.getPosX() - x + o2.getPosY() - y))
                     return 1;
-                return 0;
+                return -1;
             }
         });
         return location;

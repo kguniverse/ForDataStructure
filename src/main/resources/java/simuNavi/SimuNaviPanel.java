@@ -30,7 +30,7 @@ public class SimuNaviPanel extends JPanel {
 	boolean findLocal = false;
 	private int timesFlag = 0;
 	int changeBack = 0;
-	public SimuNaviPanel(ArrayList<Integer> go_by, int location) {
+	public SimuNaviPanel(ArrayList<Integer> go_by, int location, int strtege) {
 		locat = location;
 		if(locat == 3) {
 			if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 1) {	//起点在西土城
@@ -51,7 +51,7 @@ public class SimuNaviPanel extends JPanel {
 		if(go_by != null) {
 			nav.setWaytoPoint(go_by);
 			nav.setBeginNumByPage();
-			nav.setStrategy(1);
+			nav.setStrategy(strtege);
 			nav.confirmedStart();
 		}
 		else {
