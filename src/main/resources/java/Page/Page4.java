@@ -2,6 +2,7 @@
 package Page;
 
 import DS.common.Graph;
+import DS.common.Node;
 import DS.function.Navigator;
 import simuNavi.SimuNaviInit;
 import readinFiles.readGraph;
@@ -10,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Page4 {
@@ -62,7 +64,6 @@ public class Page4 {
         panel.add(xituchengEnd);
         panel.add(shaheEnd);
 
-
         JCheckBox strtege1 = new JCheckBox("最短距离");
         JCheckBox strtege2 = new JCheckBox("最短时间");
         strtege1.setBounds(255, 100, 100, 25);
@@ -103,13 +104,17 @@ public class Page4 {
         shaheStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                start += '1';
+                StringBuilder buf = new StringBuilder("1");
+                buf.append(start);
+                start = buf.toString();
             }
         });
         shaheEnd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                end += '1';
+                StringBuilder buf = new StringBuilder("1");
+                buf.append(end);
+                end = buf.toString();
             }
         });
 
@@ -119,8 +124,12 @@ public class Page4 {
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                start += startText.getText();
-                end += endText.getText();
+                StringBuilder buf = new StringBuilder(start);
+                buf.append(startText.getText());
+                start = buf.toString();
+                buf = new StringBuilder(end);
+                buf.append(endText.getText());
+                end = buf.toString();
                 initEnd = end;
                 initStart = start;
                 shaheEnd.setSelected(false);
@@ -176,7 +185,17 @@ public class Page4 {
         JTextField endText = new JTextField(20);
         endText.setBounds(100,50,165,25);
         panel.add(endText);
-        // 输入的文本域用于途径点
+        // 输入的文本域用于途径点\
+        JLabel label = new JLabel("添加途径点");
+        JComboBox cmp = new JComboBox();
+        for(Node u : readGraph.nodes){
+            if(u.getName().getBytes(StandardCharsets.UTF_8).length != u.getName().length()) {
+                cmp.addItem(u.getName());
+            }
+        }
+        panel.add(cmp);
+        //cmp.setBounds();
+
         JLabel goByLabel = new JLabel("途径点");
         goByLabel.setBounds(10,80,80,25);
         panel.add(goByLabel);
@@ -197,12 +216,10 @@ public class Page4 {
         panel.add(add);
         add.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(num < 15) {
-                    items[num] = goByText.getText();
-                    jList1Model.addElement(items[num]);
-                    goByText.setText("");
-                    num++;
-                }
+                items[num] = (String)cmp.getSelectedItem();
+                jList1Model.addElement((items[num]));
+                goByText.setText("");
+                num++;
             }
         });
 
@@ -244,21 +261,58 @@ public class Page4 {
     //TODO 中途修改目的点，需要查询当前点位置
     public void change_way(String new_start) {
         JFrame frame = new JFrame("校园导览系统");
-        frame.setSize(350, 230);
+        frame.setSize(370, 270);
         frame.setLocation(170, 455);
         JPanel panel = new JPanel();
         frame.add(panel);
         frame.setVisible(true);
         panel.setLayout(null);
         JLabel endLabel = new JLabel("更改终点名");
-        endLabel.setBounds(10,50,80,25);
+        endLabel.setBounds(10,100,80,25);
         panel.add(endLabel);
         JTextField endText = new JTextField(20);
-        endText.setBounds(100,50,165,25);
+        endText.setBounds(100,100,165,25);
         panel.add(endText);
 
+        JCheckBox strtege1 = new JCheckBox("最短距离");
+        JCheckBox strtege2 = new JCheckBox("最短时间");
+        strtege1.setBounds(70, 10, 100, 25);
+        strtege2.setBounds(180, 10, 100, 25);
+        panel.add(strtege1);
+        panel.add(strtege2);
+        JCheckBox strtege3 = new JCheckBox("途径最短");
+        JCheckBox strtege4 = new JCheckBox("交通最短时间");
+        strtege3.setBounds(70, 40, 100, 25);
+        strtege4.setBounds(180, 40, 100, 25);
+        panel.add(strtege3);
+        panel.add(strtege4);
+        strtege1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                strtege = 1;
+            }
+        });
+        strtege2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                strtege = 2;
+            }
+        });
+        strtege3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                strtege = 3;
+            }
+        });
+        strtege4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                strtege = 4;
+            }
+        });
+
         JButton confirm = new JButton("确定");
-        confirm.setBounds(120,100, 120, 25);
+        confirm.setBounds(120,135, 120, 25);
         panel.add(confirm);
         confirm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -275,7 +329,7 @@ public class Page4 {
 
         //返回上级
         JButton button = new JButton();
-        button.setBounds(120,150, 120, 25);
+        button.setBounds(120,170, 120, 25);
         panel.add(button);
         button.setText("返回上级");
         button.addActionListener(new ActionListener() {

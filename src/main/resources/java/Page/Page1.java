@@ -32,6 +32,7 @@ public class Page1 {
 
         //创建登陆按钮
         JButton loginButton = new JButton("login");
+        loginButton.setBackground(new Color(0x66, 0xCC, 0xCC));
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,7 +65,7 @@ public class Page1 {
         im.setBounds(0, 200, 600, 600);
         frame.add(im);
 
-        jpnel.setBackground(Color.pink);
+        jpnel.setBackground(new Color(0x99,0xCC, 0xFF));
         frame.add(jpnel);
         frame.setVisible(true);
     }
