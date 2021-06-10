@@ -5,6 +5,7 @@ import DS.common.Graph;
 import DS.common.Node;
 import DS.function.Navigator;
 import Page.Page4;
+import Page.Page7;
 import readinFiles.readGraph;
 
 import javax.swing.*;
@@ -44,7 +45,6 @@ public class SimuNaviInit extends JFrame {
 			Campus campus = new Campus(1);
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
-
 		//窗口设置
 		this.setLocation(0,0);
 		this.setTitle("智慧校园导览系统");
