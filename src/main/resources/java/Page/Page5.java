@@ -22,6 +22,7 @@ public class Page5 {
         JFrame jframe = new JFrame("查询结果");
         jframe.setBounds(100,100,300,200);
         JPanel contentPane=new JPanel();
+        contentPane.setBackground(new Color(0x99,0xCC, 0xFF));
         contentPane.setLayout(new BorderLayout(0, 0));
         jframe.setContentPane(contentPane);
         JScrollPane scrollPane=new JScrollPane();

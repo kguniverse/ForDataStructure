@@ -32,7 +32,7 @@ public class Page3 {
         im.setBounds(0, 0, 760, 876);
         frame.add(im);
 
-        jpnel.setBackground(Color.pink);
+        jpnel.setBackground(new Color(0x99,0xCC, 0xFF));
         frame.add(jpnel);
         frame.setVisible(true);
     }
@@ -63,7 +63,7 @@ public class Page3 {
         im.setBounds(0, 0, 842, 533);
         frame.add(im);
 
-        jpnel.setBackground(Color.pink);
+        jpnel.setBackground(new Color(0x99,0xCC, 0xFF));
         frame.add(jpnel);
         frame.setVisible(true);
     }

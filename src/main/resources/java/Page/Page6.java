@@ -61,6 +61,7 @@ public class Page6 {
         jp.add(panel);
         jp.add(jScrollPane1);
         for(int i = 0; i < read_user.u.getSchedule().size(); i++) {
+            items[num] = "";
             items[num] += num;
             items[num] += ". ";
             items[num] += "  时间：";

@@ -15,6 +15,11 @@ public class Graph{
     public int getNodeNum(){return totalNodeNum;}
 
     public Graph(){}
+
+    public HashMap<Integer, String> getNodeIndexToName() {
+        return nodeIndexToName;
+    }
+
     public Graph(ArrayList<Edge> edges, ArrayList<Node> nodes) throws RepeatidException {
         this.edges = new HashMap<>();
         this.nodes = new HashMap<>();

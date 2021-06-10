@@ -25,7 +25,7 @@ public class Page0 {
         jpnel.setLayout(null);
         JButton button1 = new JButton();
         button1.setBounds(210, 30, 80, 30);
-        button1.setBackground(Color.CYAN);
+        button1.setBackground(new Color(0xCC, 0xFF, 0x99));
         jpnel.add(button1);
         button1.setText("登录");
         button1.addActionListener(new ActionListener() {
@@ -41,7 +41,7 @@ public class Page0 {
         jpnel.add(button2);
         button2.setBounds(310, 30, 80, 30);
         button2.setText("注册");
-        button2.setBackground(Color.CYAN);
+        button2.setBackground(new Color(0xCC, 0xFF, 0x99));
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +52,9 @@ public class Page0 {
         JCheckBox rate10 = new JCheckBox("时钟比例10");
         JCheckBox rate20 = new JCheckBox("时钟比例20");
         rate10.setBounds(195, 80, 100, 25);
+        rate10.setBackground(new Color(0x66, 0xCC, 0xCC));
+        rate20.setBackground(new Color(0x66, 0xCC, 0xCC));
+
         rate20.setBounds(305, 80, 100, 25);
         jpnel.add(rate10);
         jpnel.add(rate20);
@@ -59,6 +62,8 @@ public class Page0 {
         JCheckBox rate40 = new JCheckBox("时钟比例40");
         rate30.setBounds(195, 110, 100, 25);
         rate40.setBounds(305, 110, 100, 25);
+        rate30.setBackground(new Color(0x66, 0xCC, 0xCC));
+        rate40.setBackground(new Color(0x66, 0xCC, 0xCC));
         rate10.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,7 +95,7 @@ public class Page0 {
         JLabel im = new JLabel(image);
         im.setBounds(0, 200, 600, 600);
         frame.add(im);
-        jpnel.setBackground(Color.pink);
+        jpnel.setBackground(new Color(0x99,0xCC, 0xFF));
         frame.add(jpnel);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
