@@ -32,6 +32,9 @@ public class Page5 {
         for (int i = 0; i< arr.size(); i++)
         {
             listData[i] = arr.get(i).getName();    //为数组中各个元素赋值
+            listData[i] += "  距离： ";
+            int length = Math.abs(arr.get(i).getPosX()+arr.get(i).getPosY()-arr.get(0).getPosX()-arr.get(0).getPosY());
+            listData[i] += length;
         }
         list.setListData(listData);    //为列表填充数据
         jframe.setVisible(true);

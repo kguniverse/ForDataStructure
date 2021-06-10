@@ -29,8 +29,11 @@ public class SimuNaviPanel extends JPanel {
 	boolean ifStop = true;
 	boolean findLocal = false;
 	private int timesFlag = 0;
+	int time = 0;
 	int changeBack = 0;
-	public SimuNaviPanel(ArrayList<Integer> go_by, int location) {
+	Page7 page7;
+	public SimuNaviPanel(ArrayList<Integer> go_by, int location, int strtege) {
+		page7 = new Page7();
 		locat = location;
 		if(locat == 3) {
 			if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 1) {	//起点在西土城
@@ -51,7 +54,7 @@ public class SimuNaviPanel extends JPanel {
 		if(go_by != null) {
 			nav.setWaytoPoint(go_by);
 			nav.setBeginNumByPage();
-			nav.setStrategy(1);
+			nav.setStrategy(strtege);
 			nav.confirmedStart();
 		}
 		else {
@@ -226,18 +229,34 @@ public class SimuNaviPanel extends JPanel {
 					}
 					ifStop = true;
 				}
-
 				try {
 					if(myMan.getTimesFlag() != 2) {
-						if(Man.type == 1)
-							sleep(5);
-						else if(Man.type == 2)
-							sleep(10);
-						else
-							sleep(20);
+						if(Man.type == 1) {
+							sleep(5*Page0.getTimeRate());
+							if(!ifStop && !findLocal)
+							time += 5*Page0.getTimeRate();
+						}
+
+						else if(Man.type == 2) {
+							sleep(10*Page0.getTimeRate());
+							if(!ifStop && !findLocal)
+							time += 10*Page0.getTimeRate();
+						}
+
+						else {
+							sleep(20*Page0.getTimeRate());
+							if(!ifStop && !findLocal)
+							time += 20*Page0.getTimeRate();
+						}
+
 					}
 					else {
-						sleep(5);
+						sleep(5*Page0.getTimeRate());
+						time += 5*Page0.getTimeRate();
+					}
+					if(time > 100*Page0.getTimeRate()) {
+						time = 0;
+						page7.refreshTime();
 					}
 
 				} catch (InterruptedException e) {

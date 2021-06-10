@@ -5,6 +5,7 @@ import DS.common.Graph;
 import DS.common.Node;
 import DS.function.Navigator;
 import Page.Page4;
+import Page.Page7;
 import readinFiles.readGraph;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class SimuNaviInit extends JFrame {
 	 * @author DELL
 	 */
 	private static final long serialVersionUID = 1L;
-	public void simuInit(ArrayList<Integer> go_by) {
+	public void simuInit(ArrayList<Integer> go_by, int strtege) {
 		//1为西土城小区，2为沙河校区，3为校区间
 		int location = 1;
 		if(readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getStart())).getCampus() == 1 && readGraph.g.getNode(readGraph.g.getNameToNodeIndex(Page4.getEnd())).getCampus() == 1) {
@@ -44,13 +45,12 @@ public class SimuNaviInit extends JFrame {
 			Campus campus = new Campus(1);
 			this.setSize(campus.getWidthFrame(),campus.getHeightFrame());
 		}
-
 		//窗口设置
 		this.setLocation(0,0);
 		this.setTitle("智慧校园导览系统");
 		this.setResizable(true);
 		this.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
-		this.setContentPane(new SimuNaviPanel(go_by, location));
+		this.setContentPane(new SimuNaviPanel(go_by, location, strtege));
 		this.setVisible(true);
 	}
 

@@ -9,6 +9,5 @@ public class MainService {
         helloPage.page();
         Page3 graph = new Page3();
         graph.page();
-
     }
 }
